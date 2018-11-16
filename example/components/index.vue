@@ -32,6 +32,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 import Faker from 'faker'
 import ExampleWithSource from './ExampleWithSource'
 

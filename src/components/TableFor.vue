@@ -2,14 +2,12 @@
 import _ from 'lodash'
 import TableDataColumn from '@/components/TableDataColumn'
 import TableHeaderColumn from '@/components/TableHeaderColumn'
-// import RenderWithHooks from '@/components/RenderWithHooks'
 import deepMerge from 'deepmerge'
 
 export default {
   components: {
     TableDataColumn,
-    TableHeaderColumn//,
-    // RenderWithHooks
+    TableHeaderColumn
   },
   props: {
     records: {
@@ -46,7 +44,7 @@ export default {
       let columns = _.flattenDeep(scopedSlot({ record: record }))
       return createElement('tr', columns.map((column) => {
         if (column.tag === 'td') {
-          return createElement(TableDataColumn, { ...column.data, props: {...this.$props, ...column.data.attrs, record: record } }, column.children )
+          return createElement(TableDataColumn, { ...column.data, props: { ...this.$props, ...column.data.attrs, record: record } }, column.children)
         }
       }))
     })

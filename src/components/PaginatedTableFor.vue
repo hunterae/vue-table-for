@@ -20,17 +20,17 @@ export default {
   render (createElement) {
     let mapSlotsToChildren = (slots, createElement) => {
       return _.flatten(Object.values(slots)).map(slot => {
-        let data = slot.data
+        // propably going to use data at some point? let data = slot.data
         return createElement(slot.tag, slot.data, slot.children)
       })
     }
 
     const scopedSlot = this.$scopedSlots.default
     let columns = scopedSlot({ record: {} })
-    let footer = createElement("tfoot", { slot: 'footer' }, [
-      createElement("tr", [
-        createElement("td", { attrs: { colspan: columns.length }}, [
-          createElement(PaginationLinks, { props: this.$props, on: { "update:currentPage": this.handleUpdatePage } })
+    let footer = createElement('tfoot', { slot: 'footer' }, [
+      createElement('tr', [
+        createElement('td', { attrs: { colspan: columns.length } }, [
+          createElement(PaginationLinks, { props: this.$props, on: { 'update:currentPage': this.handleUpdatePage } })
         ])
       ])
     ])
@@ -39,7 +39,6 @@ export default {
       ...mapSlotsToChildren(this.$slots, createElement),
       footer
     ])
-
   }
 }
 </script>

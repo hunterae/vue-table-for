@@ -1,6 +1,5 @@
 # vue-table-for
 
-
 [![npm version](https://badge.fury.io/js/vue-table-for.svg)](https://badge.fury.io/js/vue-table-for)
 ## Project setup
 ```
