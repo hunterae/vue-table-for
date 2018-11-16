@@ -6,7 +6,10 @@
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
-      <li v-for="i in windowedPageNumbers()" :class="{ active: i == currentPage}">
+      <li
+        v-for="i in windowedPageNumbers()"
+        :class="{ active: i === currentPage}"
+        :key="i">
         <span v-if="i === 'gap'" class="gap">…</span>
         <a v-else href="#" @click.prevent="setPage(i, $event)">{{i}}</a>
       </li>
@@ -55,36 +58,40 @@ export default {
     windowedPageNumbers () {
       let windowFrom = this.currentPage - this.paginationInnerWindow
       let windowTo = this.currentPage + this.paginationInnerWindow
+      let middle, left, right
 
       if (windowTo > this.totalPages) {
         windowFrom -= windowTo - this.totalPages
         windowTo = this.totalPages
       }
+
       if (windowFrom < 1) {
         windowTo += 1 - windowFrom
         windowFrom = 1
-        if (windowTo > this.totalPages)
-          windowTo = this.totalPages
+
+        if (windowTo > this.totalPages) windowTo = this.totalPages
       }
 
       // these are always visible
-      let middle = range(windowFrom, windowTo + 1)
+      middle = range(windowFrom, windowTo + 1)
 
       // left window
-      if (this.paginationOuterWindow + 3 < middle[0]) { // there's a gap
-        var left = range(1, (this.paginationOuterWindow + 2))
-        left.push("gap")
-      }
-      else { // runs into visible pages
-        var left = range(1, middle[0])
+      if (this.paginationOuterWindow + 3 < middle[0]) {
+        // there's a pagination gap
+        left = range(1, (this.paginationOuterWindow + 2))
+        left.push('gap')
+      } else {
+        // runs into visible pages
+        left = range(1, middle[0])
       }
       // right window
-      if (this.totalPages - this.paginationOuterWindow - 2 > middle[middle.length - 1]) { // again, gap
-        var right = range((this.totalPages - this.paginationOuterWindow), this.totalPages + 1)
-        right.unshift("gap")
-      }
-      else { // runs into visible pages
-        var right = range(middle[middle.length - 1] + 1, this.totalPages + 1)
+      if (this.totalPages - this.paginationOuterWindow - 2 > middle[middle.length - 1]) {
+        // again, gap
+        right = range((this.totalPages - this.paginationOuterWindow), this.totalPages + 1)
+        right.unshift('gap')
+      } else {
+        // runs into visible pages
+        right = range(middle[middle.length - 1] + 1, this.totalPages + 1)
       }
 
       return left.concat(middle).concat(right)

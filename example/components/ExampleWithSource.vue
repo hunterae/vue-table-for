@@ -5,18 +5,22 @@
     </div>
     <div class="col-md-6">
       <h3>Source</h3>
-      <pre v-highlightjs="source"><code class="vue"></code></pre>
+      <prism language="markup">{{ source }}</prism>
     </div>
     <div class="col-md-6">
       <h3>Output</h3>
       <slot></slot>
     </div>
   </div>
-</div>
 </template>
 
 <script>
+import Prism from 'vue-prism-component'
+
 export default {
+  components: {
+    Prism
+  },
   props: {
     source: String,
     title: String
@@ -28,3 +32,22 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+  pre[class*="language-"] {
+    border-radius: 6px;
+    margin: 0 0 30px 0 !important;
+  }
+
+  code[class*="language-"] {
+    font-size: 1.6rem;
+    line-height: 26px;
+  }
+
+  .language-markup .token.attr-name { color: #b294bb; }
+  .language-markup .token.attr-value { color: #b5bd68; }
+  .language-markup .token.tag,
+  .language-markup .token.keyword { color: #d75a64; }
+  .language-markup .token.punctuation { color: #8abeb7; }
+  .language-javascript .token.function { color: #81a2be; }
+  .language-javascript .token.string { color: #b5bd68; }
+</style>

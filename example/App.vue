@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="container">
-      <examples></examples>
+      <examples />
       <div class="row">
         <doc class="col-md-12 markdown-body"></doc>
       </div>
