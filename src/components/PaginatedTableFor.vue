@@ -1,7 +1,7 @@
 <script>
 import TableFor from './TableFor'
 import PaginationLinks from './PaginationLinks'
-import _ from 'lodash'
+import flatten from 'lodash/flatten'
 
 export default {
   components: {
@@ -19,26 +19,40 @@ export default {
   },
   render (createElement) {
     let mapSlotsToChildren = (slots, createElement) => {
-      return _.flatten(Object.values(slots)).map(slot => {
-        // propably going to use data at some point? let data = slot.data
+      return flatten(Object.values(slots)).map(slot => {
         return createElement(slot.tag, slot.data, slot.children)
       })
     }
+    let footer = null
 
-    const scopedSlot = this.$scopedSlots.default
-    let columns = scopedSlot({ record: {} })
-    let footer = createElement('tfoot', { slot: 'footer' }, [
-      createElement('tr', [
-        createElement('td', { attrs: { colspan: columns.length } }, [
-          createElement(PaginationLinks, { props: this.$props, on: { 'update:currentPage': this.handleUpdatePage } })
+    // let scopedSlot = this.$scopedSlots.default
+    // let columns
+    // if (scopedSlot) {
+    //   columns = scopedSlot({ record: {} })
+    // } else {
+    //   columns = this.$slots.default
+    // }
+
+    let scopedSlots = this.$scopedSlots
+    if (!scopedSlots.footer && !this.$slots.footer) {
+      footer = props => {
+        return createElement('tfoot', [
+          createElement('tr', [
+            createElement('td', { attrs: { colspan: props.columns.length } }, [
+              createElement(PaginationLinks, { props: this.$props, on: { 'update:currentPage': this.handleUpdatePage } })
+            ])
+          ])
         ])
-      ])
-    ])
+      }
+    }
 
-    return createElement(TableFor, { scopedSlots: this.$scopedSlots, props: this.$props, attrs: this.$attrs }, [
-      ...mapSlotsToChildren(this.$slots, createElement),
-      footer
-    ])
+
+
+    return createElement(
+      TableFor,
+      { scopedSlots: { footer, ...scopedSlots }, props: this.$props, attrs: this.$attrs },
+      mapSlotsToChildren(this.$slots, createElement)
+    )
   }
 }
 </script>

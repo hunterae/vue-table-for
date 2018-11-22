@@ -2,9 +2,10 @@
   <TableFor :records="records">
     <template slot-scope="{ record }">
       <td name="name">
-        {{ record.first_name }} {{ record.last_name }}
+        {{ record.first_name }}
+        {{ record.last_name }}
       </td>
-      <td name="email" />
+      <td name="email"></td>
     </template>
   </TableFor>
 </template>

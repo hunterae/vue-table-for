@@ -9,7 +9,7 @@
     <div class="jumbotron">
       <div class="container">
         <h1>vue-table-for</h1>
-        <p>vue-table-for is a table builder for an array of objects, easily allowing overriding of how any aspect of the table is generated</p>
+        <p>Easily build a table for your records</p>
       </div>
     </div>
     <div class="container">
@@ -48,9 +48,6 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  // $mdi-font-path: '~mdi/fonts/';
-  // @import "~mdi/scss/materialdesignicons.scss";
-
   .jumbotron {
     color: white;
     background: #41b883;

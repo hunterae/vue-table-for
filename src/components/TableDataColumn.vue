@@ -19,7 +19,6 @@ export default {
   },
   render (createElement) {
     let content = this.$slots.default || [this.record[this.field]]
-
     return createElement('td', {}, content)
   }
 }

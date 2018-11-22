@@ -1,6 +1,9 @@
 # vue-table-for
 
 [![npm version](https://badge.fury.io/js/vue-table-for.svg)](https://badge.fury.io/js/vue-table-for)
+
+## [Live demo](https://hunterae.github.io/vue-table-for/)
+
 ## Project setup
 ```
 yarn install

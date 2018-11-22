@@ -32,10 +32,11 @@
   "license": "MIT",
   "main": "dist/vue-table-for.common.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "vue-cli-service serve --open",
     "build-bundle": "vue-cli-service build --target lib --name vue-table-for ./src/plugin.js",
-    "lint": "vue-cli-service lint --fix"
+    "lint": "vue-cli-service lint --fix",
+    "docs": "vue-cli-service build",
+    "gh": "gh-pages -d docs"
   },
   "files": [
     "dist/*",
@@ -45,18 +46,17 @@
     "*.js"
   ],
   "devDependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.8",
-    "@fortawesome/free-solid-svg-icons": "^5.5.0",
-    "@fortawesome/vue-fontawesome": "^0.1.2",
     "@vue/cli-plugin-babel": "^3.0.4",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
     "@vue/eslint-config-standard": "^4.0.0",
+    "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
     "deepmerge": "^2.2.1",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0-0",
     "faker": "^4.1.0",
+    "gh-pages": "^2.0.1",
     "github-markdown-css": "^2.10.0",
     "highlight.js": "^9.13.1",
     "markdown-it": "^8.4.2",

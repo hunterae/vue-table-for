@@ -9,7 +9,7 @@
       <li
         v-for="i in windowedPageNumbers()"
         :class="{ active: i === currentPage}"
-        :key="i">
+        :key="`page-${i}`">
         <span v-if="i === 'gap'" class="gap">…</span>
         <a v-else href="#" @click.prevent="setPage(i, $event)">{{i}}</a>
       </li>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { range } from 'lodash'
+import range from 'lodash/range'
 
 export default {
   props: {
@@ -56,6 +56,10 @@ export default {
     // Adapted with love from will_paginate gem:
     //  https://github.com/mislav/will_paginate/blob/master/lib/will_paginate/view_helpers/link_renderer_base.rb#L28
     windowedPageNumbers () {
+      if (this.totalPages === 0) {
+        return []
+      }
+
       let windowFrom = this.currentPage - this.paginationInnerWindow
       let windowTo = this.currentPage + this.paginationInnerWindow
       let middle, left, right

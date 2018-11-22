@@ -1,5 +1,5 @@
 <script>
-import _ from 'lodash'
+import flattenDeep from 'lodash/flattenDeep'
 import TableDataColumn from '@/components/TableDataColumn'
 import TableHeaderColumn from '@/components/TableHeaderColumn'
 import deepMerge from 'deepmerge'
@@ -16,6 +16,8 @@ export default {
     }
   },
   methods: {
+    // This method is a WIP. It will be updated shortly to utilize a separate Vue Plugin I am
+    //  writing called vue-slot-hooks
     renderFirstSlotOrChildrenWithHooks ({ tag, children = [], wrapper = null, data = {}, slotName = null } = {}) {
       let slots = null
       if (slotName) {
@@ -33,27 +35,52 @@ export default {
     }
   },
   render (createElement) {
-    const scopedSlot = this.$scopedSlots.default
-    let columns = _.flattenDeep(scopedSlot({ record: {} }))
-    const headerColumns = columns.map((column) => {
-      if (column.tag === 'td') {
-        return this.renderFirstSlotOrChildrenWithHooks({ slotName: column.data.attrs.name, tag: TableHeaderColumn, data: { ...column.data, props: { ...this.$props, ...this.$attrs, ...column.data.attrs } } })
-      }
-    })
-    const dataRows = this.$props.records.map((record) => {
-      let columns = _.flattenDeep(scopedSlot({ record: record }))
-      return createElement('tr', columns.map((column) => {
+    let columns, headerColumns, dataRows, footer
+    let scopedSlot = this.$scopedSlots.default
+    if (scopedSlot) {
+      columns = flattenDeep(scopedSlot({ record: {} }))
+      headerColumns = columns.map((column) => {
         if (column.tag === 'td') {
-          return createElement(TableDataColumn, { ...column.data, props: { ...this.$props, ...column.data.attrs, record: record } }, column.children)
+          let headerOptions = deepMerge.all([column.data, { props: column.data.attrs }, { attrs: { header: undefined, name: undefined } } ])
+          return this.renderFirstSlotOrChildrenWithHooks({ slotName: column.data.attrs.name, tag: TableHeaderColumn, data: headerOptions })
         }
-      }))
-    })
+      })
+      dataRows = this.$props.records.map((record) => {
+        columns = flattenDeep(scopedSlot({ record: record }))
+        return createElement('tr', columns.map((column) => {
+          if (column.tag === 'td') {
+            return createElement(TableDataColumn, deepMerge.all([column.data, { attrs: { header: undefined, name: undefined }}, { props: {...this.$props, ...column.data.attrs, record: record } }]), column.children )
+          }
+        }))
+      })
+    }
+    else {
+      columns = this.$slots.default
+      headerColumns = columns.map((column) => {
+        if (column.tag === 'td') {
+          let headerOptions = deepMerge.all([column.data, { props: column.data.attrs }, { attrs: { header: undefined, name: undefined } } ])
+          return this.renderFirstSlotOrChildrenWithHooks({ slotName: column.data.attrs.name, tag: TableHeaderColumn, data: headerOptions })
+        }
+      })
+      dataRows = this.$props.records.map((record) => {
+        return createElement('tr', columns.map((column) => {
+          if (column.tag === 'td') {
+            return createElement(TableDataColumn, deepMerge.all([column.data, { attrs: { header: undefined, name: undefined }}, { props: {...this.$props, ...column.data.attrs, record: record } }]), column.children )
+          }
+        }))
+      })
+    }
 
     // let header = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'header', tag: 'tr', children: headerColumns, wrapper: 'thead' })
     let header = createElement('thead', [createElement('tr', headerColumns)])
     // let body = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'body', tag: 'tbody', children: dataRows })
     let body = createElement('tbody', dataRows)
-    let footer = this.$slots.footer
+
+    if (this.$scopedSlots.footer) {
+      footer = this.$scopedSlots.footer({ columns: headerColumns })
+    } else if (this.$slots.footer) {
+      footer = this.$slots.footer
+    }
 
     return createElement('table', this.$attrs, [
       header,

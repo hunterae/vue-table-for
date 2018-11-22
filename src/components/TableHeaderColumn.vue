@@ -1,5 +1,5 @@
 <script>
-import _ from 'lodash'
+import startCase from 'lodash/startCase'
 
 export default {
   props: {
@@ -9,13 +9,13 @@ export default {
     },
     header: {
       default () {
-        return _.startCase(this.name)
+        return startCase(this.name)
       }
     }
   },
   computed: {
     headerText () {
-      let headerText = _.startCase(this.name)
+      let headerText = startCase(this.name)
       if (typeof this.header === 'object') {
         if (typeof this.header.label !== 'undefined') {
           headerText = this.header.label
