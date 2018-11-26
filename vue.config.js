@@ -22,5 +22,15 @@ module.exports = {
       .options({
         raw: true
       })
+    if (process.env.NODE_ENV !== 'production') {
+      config.module
+        .rule('eslint')
+        .use('eslint-loader')
+        .loader('eslint-loader')
+        .tap(options => {
+          options.fix = true
+          return options
+        })
+    }
   }
 }

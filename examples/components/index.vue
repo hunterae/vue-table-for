@@ -12,11 +12,11 @@
       are passed into the components.
     </i>
     <ExampleWithSource :source="basicExampleSource" title="Basic Example">
-      <!-- <p slot="description">
+      <p slot="description">
         In this example, the TableFor component is passed an array of records, and
         tells the table to output columns for corresponding to fields on each
         record.
-      </p> -->
+      </p>
       <BasicExample
         :records="records.slice(0, 8)"
         class="table table-hover table-striped table-bordered">
@@ -46,6 +46,18 @@
         :records="records.slice(0, 8)"
         class="table table-hover table-striped table-bordered">
       </CustomHeaderExample>
+    </ExampleWithSource>
+
+    <ExampleWithSource :source="filteredContentExampleSource" title="Filters and Formatters Example">
+      <!-- <p slot="description">
+        In this example, the TableFor component is passed an array of records, and
+        tells the table to output columns for corresponding to fields on each
+        record.
+      </p> -->
+      <FilteredContentExample
+        :records="records.slice(0, 1)"
+        class="table table-hover table-striped table-bordered">
+      </FilteredContentExample>
     </ExampleWithSource>
 
     <ExampleWithSource :source="customFooterExampleSource" title="Custom Footer Example">
@@ -79,6 +91,9 @@ import localPaginatedExampleSource from '!raw-loader!./LocalPaginatedExample'
 import RemotePaginatedExample from './RemotePaginatedExample'
 import remotePaginatedExampleSource from '!raw-loader!./RemotePaginatedExample'
 
+import FilteredContentExample from './FilteredContentExample'
+import filteredContentExampleSource from '!raw-loader!./FilteredContentExample'
+
 export default {
   components: {
     ExampleWithSource,
@@ -87,7 +102,8 @@ export default {
     LocalPaginatedExample,
     RemotePaginatedExample,
     CustomHeaderExample,
-    CustomFooterExample
+    CustomFooterExample,
+    FilteredContentExample
   },
   data () {
     return {
@@ -97,6 +113,7 @@ export default {
       customFooterExampleSource,
       localPaginatedExampleSource,
       remotePaginatedExampleSource,
+      filteredContentExampleSource,
       tableClass: "table table-hover table-striped table-bordered",
       records: samplePeopleRecords
     }

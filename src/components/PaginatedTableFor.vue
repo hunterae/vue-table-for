@@ -46,8 +46,6 @@ export default {
       }
     }
 
-
-
     return createElement(
       TableFor,
       { scopedSlots: { footer, ...scopedSlots }, props: this.$props, attrs: this.$attrs },

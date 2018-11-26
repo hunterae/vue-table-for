@@ -24,7 +24,7 @@ export default {
         recordOffset,
         recordOffset + this.perPage
       )
-    },
+    }
   },
   data () {
     return {

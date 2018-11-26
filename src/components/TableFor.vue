@@ -13,6 +13,10 @@ export default {
     records: {
       type: Array,
       required: true
+    },
+    recordVariable: {
+      type: String,
+      default: 'record'
     }
   },
   methods: {
@@ -37,8 +41,14 @@ export default {
   render (createElement) {
     let columns, headerColumns, dataRows, footer
     let scopedSlot = this.$scopedSlots.default
+    // debugger
     if (scopedSlot) {
-      columns = flattenDeep(scopedSlot({ record: {} }))
+      let proxyHash = new Proxy({}, {
+        get: function (object, property) {
+          return ''
+        }
+      })
+      columns = flattenDeep(scopedSlot({ [this.recordVariable]: proxyHash, table: this }))
       headerColumns = columns.map((column) => {
         if (column.tag === 'td') {
           let headerOptions = deepMerge.all([column.data, { props: column.data.attrs }, { attrs: { header: undefined, name: undefined } } ])
@@ -46,15 +56,14 @@ export default {
         }
       })
       dataRows = this.$props.records.map((record) => {
-        columns = flattenDeep(scopedSlot({ record: record }))
+        columns = flattenDeep(scopedSlot({ [this.recordVariable]: record, table: this }))
         return createElement('tr', columns.map((column) => {
           if (column.tag === 'td') {
-            return createElement(TableDataColumn, deepMerge.all([column.data, { attrs: { header: undefined, name: undefined }}, { props: {...this.$props, ...column.data.attrs, record: record } }]), column.children )
+            return createElement(TableDataColumn, deepMerge.all([column.data, { attrs: { header: undefined, name: undefined } }, { props: { ...this.$props, ...column.data.attrs, record: record } }]), column.children)
           }
         }))
       })
-    }
-    else {
+    } else {
       columns = this.$slots.default
       headerColumns = columns.map((column) => {
         if (column.tag === 'td') {
@@ -65,7 +74,7 @@ export default {
       dataRows = this.$props.records.map((record) => {
         return createElement('tr', columns.map((column) => {
           if (column.tag === 'td') {
-            return createElement(TableDataColumn, deepMerge.all([column.data, { attrs: { header: undefined, name: undefined }}, { props: {...this.$props, ...column.data.attrs, record: record } }]), column.children )
+            return createElement(TableDataColumn, deepMerge.all([column.data, { attrs: { header: undefined, name: undefined } }, { props: { ...this.$props, ...column.data.attrs, record: record } }]), column.children)
           }
         }))
       })
@@ -77,7 +86,7 @@ export default {
     let body = createElement('tbody', dataRows)
 
     if (this.$scopedSlots.footer) {
-      footer = this.$scopedSlots.footer({ columns: headerColumns })
+      footer = this.$scopedSlots.footer({ columns: headerColumns, table: this })
     } else if (this.$slots.footer) {
       footer = this.$slots.footer
     }
