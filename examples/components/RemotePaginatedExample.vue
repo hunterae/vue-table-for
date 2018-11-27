@@ -2,7 +2,9 @@
   <PaginatedTableFor
     :records="records"
     :current-page.sync="currentPage"
-    :total-pages="totalPages">
+    :total-pages="totalPages"
+    class="table table-hover 
+      table-striped table-bordered">
     <template slot-scope="{record}">
       <td name="first_name" />
       <td name="last_name" />

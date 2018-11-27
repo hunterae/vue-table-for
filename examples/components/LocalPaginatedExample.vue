@@ -1,5 +1,8 @@
 <template>
-  <LocalPaginatedTableFor :records="records">
+  <LocalPaginatedTableFor
+    class="table table-hover 
+      table-striped table-bordered"
+    :records="records">
     <td name="first_name" />
     <td name="last_name" />
     <td name="email" />
@@ -7,9 +10,12 @@
 </template>
 
 <script>
+import samplePeopleRecords from '../people.json'
 export default {
-  props: {
-    records: Array
+  data () {
+    return {
+      records: samplePeopleRecords
+    }
   }
 }
 </script>

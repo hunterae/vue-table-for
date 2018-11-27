@@ -1,7 +1,8 @@
 <template>
-  <TableFor :records="records">
-    <!-- Overrides the default first_name
-         header column -->
+  <TableFor
+    :records="records"
+    class="table table-hover 
+      table-striped table-bordered">>
     <th slot="first_name" style="color: red">
       <i class="fa fa-users"></i>
     </th>
@@ -20,9 +21,12 @@
 </template>
 
 <script>
+import samplePeopleRecords from '../people.json'
 export default {
-  props: {
-    records: Array
+  data () {
+    return {
+      records: samplePeopleRecords.slice(0, 10)
+    }
   },
   methods: {
     linkClicked (event) {

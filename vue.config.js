@@ -7,12 +7,14 @@ module.exports = {
       title: 'vue-table-for Examples'
     }
   },
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? '/vue-table-for/'
-    : '/',
+
+  baseUrl: process.env.NODE_ENV === 'production' ? '/vue-table-for/' : '/',
+
   outputDir: 'docs',
+
   chainWebpack: config => {
-    config.module.rule('md')
+    config.module
+      .rule('md')
       .test(/\.md/)
       .use('vue-loader')
       .loader('vue-loader')
@@ -22,15 +24,5 @@ module.exports = {
       .options({
         raw: true
       })
-    if (process.env.NODE_ENV !== 'production') {
-      config.module
-        .rule('eslint')
-        .use('eslint-loader')
-        .loader('eslint-loader')
-        .tap(options => {
-          options.fix = true
-          return options
-        })
-    }
   }
 }

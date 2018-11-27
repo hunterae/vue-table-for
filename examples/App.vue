@@ -35,8 +35,6 @@
 import Doc from '../README.md'
 import Examples from './components/index'
 import 'github-markdown-css'
-import 'highlight.js/styles/github.css'
-
 
 export default {
   name: 'app',

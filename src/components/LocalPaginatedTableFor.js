@@ -1,4 +1,3 @@
-<script>
 import PaginatedTableFor from './PaginatedTableFor'
 import omit from 'lodash/omit'
 import flatten from 'lodash/flatten'
@@ -15,47 +14,45 @@ export default {
     }
   },
   computed: {
-    totalPages () {
+    totalPages() {
       return Math.ceil(this.records.length / this.perPage)
     },
-    currentPageRecords () {
+    currentPageRecords() {
       let recordOffset = (this.currentPage - 1) * this.perPage
-      return this.records.slice(
-        recordOffset,
-        recordOffset + this.perPage
-      )
+      return this.records.slice(recordOffset, recordOffset + this.perPage)
     }
   },
-  data () {
+  data() {
     return {
       currentPage: 1
     }
   },
   methods: {
-    handleUpdatePage (page) {
+    handleUpdatePage(page) {
       this.currentPage = page
     }
   },
-  render (createElement) {
+  render(createElement) {
     let mapSlotsToChildren = (slots, createElement) => {
       return flatten(Object.values(slots)).map(slot => {
         return createElement(slot.tag, slot.data, slot.children)
       })
     }
 
-    return createElement(PaginatedTableFor, {
-      scopedSlots: this.$scopedSlots,
-      props: {
-        ...this.$props,
-        records: this.currentPageRecords,
-        currentPage: this.currentPage,
-        totalPages: this.totalPages
+    return createElement(
+      PaginatedTableFor,
+      {
+        scopedSlots: this.$scopedSlots,
+        props: {
+          ...this.$props,
+          records: this.currentPageRecords,
+          currentPage: this.currentPage,
+          totalPages: this.totalPages
+        },
+        attrs: this.$attrs,
+        on: { 'update:currentPage': this.handleUpdatePage }
       },
-      attrs: this.$attrs,
-      on: { 'update:currentPage': this.handleUpdatePage }
-    }, [
-      ...mapSlotsToChildren(this.$slots, createElement)
-    ])
+      [...mapSlotsToChildren(this.$slots, createElement)]
+    )
   }
 }
-</script>

@@ -1,121 +1,113 @@
 <template>
   <div>
     <h1 class="page-header">Examples</h1>
-
-    <i>
-      Note: The code that renders each of the following examples is applying
-      the Bootstrap 3 classes "table table-hover table-striped table-bordered" to
-      each generated table, and providing records read in from the local JSON
-      file found <a href="https://github.com/hunterae/vue-table-for/tree/master/examples/people.json" target="_blank">here in the repo</a>,
-      or, for remote examples, using the fake JSON API https://reqres.in.
-      For the non-paginated examples, only the first 8 entries from the JSON file
-      are passed into the components.
-    </i>
-    <ExampleWithSource :source="basicExampleSource" title="Basic Example">
-      <p slot="description">
-        In this example, the TableFor component is passed an array of records, and
-        tells the table to output columns for corresponding to fields on each
-        record.
-      </p>
-      <BasicExample
-        :records="records.slice(0, 8)"
-        class="table table-hover table-striped table-bordered">
-      </BasicExample>
-    </ExampleWithSource>
-
-    <ExampleWithSource :source="customColumnExampleSource" title="Custom Column Definition">
-      <CustomColumnExample
-        :records="records.slice(0, 8)"
-        class="table table-hover table-striped table-bordered">
-      </CustomColumnExample>
-    </ExampleWithSource>
-
-    <ExampleWithSource :source="localPaginatedExampleSource" title="Local Data Pagination Example">
-      <LocalPaginatedExample
-        :records="records"
-        class="table table-hover table-striped table-bordered">
-      </LocalPaginatedExample>
-    </ExampleWithSource>
-
-    <ExampleWithSource :source="remotePaginatedExampleSource" title="Remote Data Pagination Example">
-      <RemotePaginatedExample :class="tableClass"></RemotePaginatedExample>
-    </ExampleWithSource>
-
-    <ExampleWithSource :source="customHeaderExampleSource" title="Custom Header Definition">
-      <CustomHeaderExample
-        :records="records.slice(0, 8)"
-        class="table table-hover table-striped table-bordered">
-      </CustomHeaderExample>
-    </ExampleWithSource>
-
-    <ExampleWithSource :source="filteredContentExampleSource" title="Filters and Formatters Example">
-      <!-- <p slot="description">
-        In this example, the TableFor component is passed an array of records, and
-        tells the table to output columns for corresponding to fields on each
-        record.
-      </p> -->
-      <FilteredContentExample
-        :records="records.slice(0, 1)"
-        class="table table-hover table-striped table-bordered">
-      </FilteredContentExample>
-    </ExampleWithSource>
-
-    <ExampleWithSource :source="customFooterExampleSource" title="Custom Footer Example">
-      <CustomFooterExample
-        :records="records.slice(0, 8)"
-        class="table table-hover table-striped table-bordered">
-      </CustomFooterExample>
-    </ExampleWithSource>
+    <div v-for="(list, category) in examples" :key="category">
+      <h2>{{category}}</h2>
+      <ExampleWithSource v-for="example in list" :key="example.title" v-bind="example">  
+      </ExampleWithSource>
+    </div>
   </div>
 </template>
 
 <script>
-import samplePeopleRecords from '../people.json'
 import ExampleWithSource from './ExampleWithSource'
 
-import BasicExample from './BasicExample'
-import basicExampleSource from '!raw-loader!./BasicExample'
+// Configuring Columns
+import BasicExample from './columns/BasicExample'
+import BasicExampleSource from '!raw-loader!./columns/BasicExample'
 
-import CustomColumnExample from './CustomColumnExample'
-import customColumnExampleSource from '!raw-loader!./CustomColumnExample'
+import CustomColumnExample from './columns/CustomColumnExample'
+import CustomColumnExampleSource from '!raw-loader!./columns/CustomColumnExample'
 
+import ColumnFormattersAndContentExample from './columns/FormattersExample'
+import ColumnFormattersAndContentExampleSource from '!raw-loader!./columns/FormattersExample'
+
+// Configuring Headers
 import CustomHeaderExample from './CustomHeaderExample'
-import customHeaderExampleSource from '!raw-loader!./CustomHeaderExample'
+import CustomHeaderExampleSource from '!raw-loader!./CustomHeaderExample'
 
+// Configuring Footer
 import CustomFooterExample from './CustomFooterExample'
-import customFooterExampleSource from '!raw-loader!./CustomFooterExample'
+import CustomFooterExampleSource from '!raw-loader!./CustomFooterExample'
 
+// Paginating Data
 import LocalPaginatedExample from './LocalPaginatedExample'
-import localPaginatedExampleSource from '!raw-loader!./LocalPaginatedExample'
+import LocalPaginatedExampleSource from '!raw-loader!./LocalPaginatedExample'
 
 import RemotePaginatedExample from './RemotePaginatedExample'
-import remotePaginatedExampleSource from '!raw-loader!./RemotePaginatedExample'
+import RemotePaginatedExampleSource from '!raw-loader!./RemotePaginatedExample'
 
-import FilteredContentExample from './FilteredContentExample'
-import filteredContentExampleSource from '!raw-loader!./FilteredContentExample'
+// import FilteredContentExample from './FilteredContentExample'
+// import FilteredContentExampleSource from '!raw-loader!./FilteredContentExample'
+
+let examples = {
+  'Configuring Columns': [
+    {
+      source: BasicExampleSource,
+      title: 'Using record fields as column names',
+      component: BasicExample,
+      description: `In this example, the TableFor component is passed an array of records, and
+          tells the table to output columns for corresponding to fields on each
+          record. When the column names match the names of fields in the record, no further
+          configuration is need and the component will output the value of each record field
+          specified. If a record field name does not match, it may be specified using the 'field'
+          option.`
+    },
+    {
+      source: CustomColumnExampleSource,
+      title: 'Using a custom column definition or field',
+      component: CustomColumnExample,
+      description: `When a column definition is provided that needs access to each record
+          being output, the columns should be surrounded with a scoped slot template. The 
+          scoped slot may take a series of parameters, either as a single object with properties,
+          or as a destructured set of fields.`
+    },
+    {
+      source: ColumnFormattersAndContentExampleSource,
+      title: 'Formatting and specifying column content',
+      component: ColumnFormattersAndContentExample,
+      description: `A formatter for data columns may be specified on the entire table
+          or on a column by column basis. If a formatter is specified on an individual
+          column, it takes precedence over the one specified for the entire table.
+          Formatters will have no effect on custom column definitions.`
+    }
+  ],
+  'Configuring Headers': [
+    {
+      source: CustomHeaderExampleSource,
+      title: 'Custom Header Example',
+      component: CustomHeaderExample
+    }
+  ],
+  'Configuring Rows': [],
+  'Configuring Footer': [
+    {
+      source: CustomFooterExampleSource,
+      title: 'Custom Footer Example',
+      component: CustomFooterExample
+    }
+  ],
+  'Paginating Data': [
+    {
+      source: LocalPaginatedExampleSource,
+      title: 'Local Data Pagination Example',
+      component: LocalPaginatedExample
+    },
+    {
+      source: RemotePaginatedExampleSource,
+      title: 'Remote Data Pagination Example',
+      component: RemotePaginatedExample
+    }
+  ]
+}
 
 export default {
   components: {
-    ExampleWithSource,
-    BasicExample,
-    CustomColumnExample,
-    LocalPaginatedExample,
-    RemotePaginatedExample,
-    CustomHeaderExample,
-    CustomFooterExample,
-    FilteredContentExample
+    ExampleWithSource
   },
-  data () {
+  data() {
     return {
-      basicExampleSource,
-      customColumnExampleSource,
-      customHeaderExampleSource,
-      customFooterExampleSource,
-      localPaginatedExampleSource,
-      remotePaginatedExampleSource,
-      filteredContentExampleSource,
-      tableClass: "table table-hover table-striped table-bordered",
-      records: samplePeopleRecords
+      examples
     }
   }
 }

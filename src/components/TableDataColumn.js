@@ -1,7 +1,7 @@
 export default {
   props: {
     record: {
-      default () {
+      default() {
         return {}
       }
     },
@@ -11,38 +11,50 @@ export default {
     },
     field: {
       type: String,
-      default () {
+      default() {
         return this.name
       }
     },
-    content: String,
+    content: {},
     formatter: {
       type: Function
     }
   },
   computed: {
-    value () {
-      let value
-      if (this.content) {
-        value = this.content
-      } else {
-        value = this.record[this.field]
+    formattedContent() {
+      let formattedContent = this.content
+      if (
+        typeof formattedContent === 'undefined' &&
+        this.record.hasOwnProperty(this.field)
+      ) {
+        formattedContent = this.record[this.field]
       }
 
-      if (this.formatter && value) {
-        value = this.formatter(value, { column: this, record: this.record })
+      if (this.formatter && typeof formattedContent !== 'undefined') {
+        formattedContent = this.formatter(formattedContent, {
+          column: this,
+          record: this.record
+        })
       }
-      return value
+      return formattedContent
     }
   },
-  render (createElement) {
-    let defaultContent = this.$slots.default
-    if (defaultContent) {
-      return createElement('td', {}, defaultContent)
+  render(createElement) {
+    let element
+    let customContent = this.$slots.default
+    let content = this.formattedContent
+    if (customContent) {
+      element = createElement('td', {}, customContent)
+    } else if (typeof content === 'object' && content.hasOwnProperty('tag')) {
+      element = createElement('td', {}, [content])
     } else {
-      return createElement('td', { domProps: {
-        innerHTML: this.value
-      } })
+      element = createElement('td', {
+        domProps: {
+          innerHTML: content
+        }
+      })
     }
+
+    return element
   }
 }
