@@ -36,7 +36,8 @@
     "build-bundle": "vue-cli-service build --target lib --name vue-table-for ./src/plugin.js",
     "lint": "vue-cli-service lint --fix",
     "docs": "vue-cli-service build",
-    "gh": "gh-pages -d docs"
+    "gh": "gh-pages -d docs",
+    "release": "npm publish --access public"
   },
   "files": [
     "dist/*",

@@ -120,3 +120,5 @@ vue-table-for is more-or-less a direct port over of my [Ruby on Rails' table-for
 I also thank [Fernando Garcia](https://github.com/fernandoagarcia) for recommending VueJS in the first place, helping me learn a lot of the ins and outs, and also acting as a collaborator for this plugin.
 
 I studied the [vue-fullscreen](https://github.com/mirari/vue-fullscreen) plugin and reproduced a lot of similar approaches for how that plugin is setup, particularly with how it is used to create its own documentation and examples.
+
+I also followed used approaches from these two articles [How to create, publish and use your own VueJS Component library on NPM using @vue/cli 3.0](https://medium.com/justfrontendthings/how-to-create-and-publish-your-own-vuejs-component-library-on-npm-using-vue-cli-28e60943eed3) and [Writing a very simple plugin in Vue.js - (Example)](https://dev.to/nkoik/writing-a-very-simple-plugin-in-vuejs---example-8g8) in learning how to create a VueJS plugin.
