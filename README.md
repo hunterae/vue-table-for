@@ -7,7 +7,7 @@
 Yarn:
 
 ```
-yard add vue-table-for
+yarn add vue-table-for
 ```
 
 Npm:
