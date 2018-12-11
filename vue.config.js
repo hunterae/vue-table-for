@@ -7,11 +7,7 @@ module.exports = {
       title: 'vue-table-for Examples'
     }
   },
-
   baseUrl: process.env.NODE_ENV === 'production' ? '/vue-table-for/' : '/',
-
-  outputDir: 'docs',
-
   chainWebpack: config => {
     config.module
       .rule('md')

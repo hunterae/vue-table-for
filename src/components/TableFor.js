@@ -160,9 +160,13 @@ export default {
     }
 
     // let header = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'header', tag: 'tr', children: headerColumns, wrapper: 'thead' })
-    let header = createElement('thead', [createElement('tr', headerColumns)])
+    let header = (
+      <thead>
+        <tr>{headerColumns}</tr>
+      </thead>
+    )
     // let body = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'body', tag: 'tbody', children: dataRows })
-    let body = createElement('tbody', dataRows)
+    let body = <tbody>{dataRows}</tbody>
 
     if (this.$scopedSlots.footer) {
       footer = this.$scopedSlots.footer({ columns: headerColumns, table: this })

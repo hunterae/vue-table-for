@@ -3,7 +3,7 @@
     <h1 class="page-header">Examples</h1>
     <div v-for="(list, category) in examples" :key="category">
       <h2>{{category}}</h2>
-      <ExampleWithSource v-for="example in list" :key="example.title" v-bind="example">  
+      <ExampleWithSource v-for="example in list" :key="example.title" v-bind="example">
       </ExampleWithSource>
     </div>
   </div>
@@ -16,8 +16,8 @@ import ExampleWithSource from './ExampleWithSource'
 import BasicExample from './columns/BasicExample'
 import BasicExampleSource from '!raw-loader!./columns/BasicExample'
 
-import CustomColumnExample from './columns/CustomColumnExample'
-import CustomColumnExampleSource from '!raw-loader!./columns/CustomColumnExample'
+import AllColumnsScopedExample from './columns/AllColumnsScopedExample'
+import AllColumnsScopedExampleSource from '!raw-loader!./columns/AllColumnsScopedExample'
 
 import ColumnFormattersAndContentExample from './columns/FormattersExample'
 import ColumnFormattersAndContentExampleSource from '!raw-loader!./columns/FormattersExample'
@@ -37,9 +37,6 @@ import LocalPaginatedExampleSource from '!raw-loader!./LocalPaginatedExample'
 import RemotePaginatedExample from './RemotePaginatedExample'
 import RemotePaginatedExampleSource from '!raw-loader!./RemotePaginatedExample'
 
-// import FilteredContentExample from './FilteredContentExample'
-// import FilteredContentExampleSource from '!raw-loader!./FilteredContentExample'
-
 let examples = {
   'Configuring Columns': [
     {
@@ -54,13 +51,12 @@ let examples = {
           option.`
     },
     {
-      source: CustomColumnExampleSource,
+      source: AllColumnsScopedExampleSource,
       title: 'Using a custom column definition or field',
-      component: CustomColumnExample,
-      description: `When a column definition is provided that needs access to each record
-          being output, the columns should be surrounded with a scoped slot template. The 
-          scoped slot may take a series of parameters, either as a single object with properties,
-          or as a destructured set of fields.`
+      component: AllColumnsScopedExample,
+      description: `If more than one column provides a custom definition, it might be a good.
+          idea to surround all of the columns in a scope-slot so that they all have access
+          to the the current record.`
     },
     {
       source: ColumnFormattersAndContentExampleSource,

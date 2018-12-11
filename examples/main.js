@@ -6,6 +6,6 @@ import 'prismjs/themes/prism-tomorrow.css'
 
 Vue.use(TableFor)
 
-window.vm = new Vue({ // eslint-disable no-unused-vars
+new Vue({
   render: h => h(App)
 }).$mount('#app')

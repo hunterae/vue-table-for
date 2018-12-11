@@ -43,9 +43,18 @@ export default {
     let element
     let customContent = this.$slots.default
     let content = this.formattedContent
-    if (customContent) {
+    if (this.$scopedSlots.default) {
+      element = createElement(
+        'td',
+        {},
+        this.$scopedSlots.default({ record: this.record })
+      )
+    } else if (customContent) {
       element = createElement('td', {}, customContent)
-    } else if (typeof content === 'object' && content.hasOwnProperty('tag')) {
+    } else if (
+      typeof content === 'object' &&
+      (!content || content.hasOwnProperty('tag'))
+    ) {
       element = createElement('td', {}, [content])
     } else {
       element = createElement('td', {

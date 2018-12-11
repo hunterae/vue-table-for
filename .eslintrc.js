@@ -7,9 +7,7 @@ module.exports = {
 
   rules: {
     'no-console': 'off',
-    'no-debugger': 'off',
-    quotes: ['error', 'single'],
-    semi: ['error', 'never']
+    'no-debugger': 'off'
   },
 
   parserOptions: {
@@ -18,5 +16,9 @@ module.exports = {
 
   plugins: ['vue'],
 
-  extends: ['plugin:vue/essential', 'eslint:recommended', 'prettier']
+  extends: [
+    'plugin:vue/essential',
+    'eslint:recommended',
+    'plugin:prettier/recommended'
+  ]
 }

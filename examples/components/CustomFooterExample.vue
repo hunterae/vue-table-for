@@ -25,11 +25,11 @@
 <script>
 import samplePeopleRecords from '../people.json'
 export default {
-  data () {
+  data() {
     return {
       records: samplePeopleRecords.slice(0, 10)
     }
-  },
+  }
 }
 </script>
 

@@ -17,7 +17,7 @@ export default {
     }
   },
   render(createElement) {
-    let mapSlotsToChildren = (slots, createElement) => {
+    let mapSlotsToChildren = slots => {
       return flatten(Object.values(slots)).map(slot => {
         return createElement(slot.tag, slot.data, slot.children)
       })
@@ -47,7 +47,7 @@ export default {
         props: this.$props,
         attrs: this.$attrs
       },
-      mapSlotsToChildren(this.$slots, createElement)
+      mapSlotsToChildren(this.$slots)
     )
   }
 }

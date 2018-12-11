@@ -33,7 +33,7 @@ export default {
     }
   },
   render(createElement) {
-    let mapSlotsToChildren = (slots, createElement) => {
+    let mapSlotsToChildren = slots => {
       return flatten(Object.values(slots)).map(slot => {
         return createElement(slot.tag, slot.data, slot.children)
       })
@@ -52,7 +52,7 @@ export default {
         attrs: this.$attrs,
         on: { 'update:currentPage': this.handleUpdatePage }
       },
-      [...mapSlotsToChildren(this.$slots, createElement)]
+      [...mapSlotsToChildren(this.$slots)]
     )
   }
 }

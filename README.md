@@ -28,9 +28,11 @@ import TableFor from 'vue-table-for'
 Vue.use(TableFor)
 ```
 
-Check out the [Live demo](https://hunterae.github.io/vue-table-for/) for examples.
+## DEMO
 
-Then, use any of the following components within your templates:
+[LIVE DEMO](https://hunterae.github.io/vue-table-for/) for examples.
+
+## Components
 
 ### TableFor
 
