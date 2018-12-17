@@ -1,7 +1,7 @@
 {
   "name": "vue-table-for",
   "description": "vue-table-for is a table builder for an array of objects, easily allowing overriding of how any aspect of the table is generated",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": {
     "name": "Andrew Hunter",
     "email": "hunterae@gmail.com"
@@ -30,9 +30,9 @@
     "url": "https://github.com/hunterae/vue-table-for/issues"
   },
   "license": "MIT",
-  "main": "dist/table-builder.umd.js",
-  "module": "dist/table-builder.esm.js",
-  "unpkg": "dist/table-builder.min.js",
+  "main": "dist/vue-table-builder.umd.js",
+  "module": "dist/vue-table-builder.esm.js",
+  "unpkg": "dist/vue-table-builder.min.js",
   "scripts": {
     "serve": "vue-cli-service serve --open",
     "build-bundle": "vue-cli-service build --target lib --name vue-table-for ./src/plugin.js",
