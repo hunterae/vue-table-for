@@ -1,9 +1,17 @@
-import flattenDeep from 'lodash/flattenDeep'
-import TableDataColumn from '@/components/TableDataColumn'
-import TableHeaderColumn from '@/components/TableHeaderColumn'
-import deepMerge from 'deepmerge'
-import omit from 'lodash/omit'
-import pick from 'lodash/pick'
+import TableDataColumn from './TableDataColumn'
+import TableHeaderColumn from './TableHeaderColumn'
+// import deepMerge from 'deepmerge'
+import {
+  omit,
+  pick,
+  flattenDeep,
+  deepMerge,
+  deepMergeAll
+} from '../utils/Helpers'
+
+// import omit from 'lodash/omit'
+// import pick from 'lodash/pick'
+// import flattenDeep from 'lodash/flattenDeep'
 
 export default {
   components: {
@@ -79,10 +87,14 @@ export default {
         if (column.data.attrs.hasOwnProperty('header')) {
           header = column.data.attrs.header
           if (typeof header === 'object') {
-            headerOptions = deepMerge.all([
+            headerOptions = deepMergeAll([
               headerOptions,
-              { props: pick(header, Object.keys(TableHeaderColumn.props)) },
-              { attrs: omit(header, Object.keys(TableHeaderColumn.props)) }
+              {
+                props: pick(header, Object.keys(TableHeaderColumn.props))
+              },
+              {
+                attrs: omit(header, Object.keys(TableHeaderColumn.props))
+              }
             ])
           } else {
             headerOptions.props.content = header
@@ -97,7 +109,7 @@ export default {
     },
     createDataColumn(column, record) {
       if (column.tag === 'td') {
-        let dataOptions = deepMerge.all([
+        let dataOptions = deepMergeAll([
           omit(column.data, 'attrs'),
           {
             attrs: omit(
@@ -160,13 +172,11 @@ export default {
     }
 
     // let header = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'header', tag: 'tr', children: headerColumns, wrapper: 'thead' })
-    let header = (
-      <thead>
-        <tr>{headerColumns}</tr>
-      </thead>
-    )
+    let header = createElement('thead', {}, [
+      createElement('tr', headerColumns)
+    ])
     // let body = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'body', tag: 'tbody', children: dataRows })
-    let body = <tbody>{dataRows}</tbody>
+    let body = createElement('tbody', {}, dataRows)
 
     if (this.$scopedSlots.footer) {
       footer = this.$scopedSlots.footer({ columns: headerColumns, table: this })

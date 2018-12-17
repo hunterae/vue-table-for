@@ -114,6 +114,7 @@ TODO
 - Filtering utilities
 - Ability to provide slots in relation to various hooks provided throughout the component (integration with vue-slot-hooks - wip plugin)
 - Install plugin with a global instance of Vue (i.e. not as plugin using Vue.use(TableFor))
+- Release notes and tagged versions in Git
 
 ## Acknowledgements
 

@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import range from 'lodash/range'
+import { range } from '../utils/Helpers'
+// import range from 'lodash/range'
 
 export default {
   props: {
@@ -45,7 +46,7 @@ export default {
     }
   },
   methods: {
-    setPage (i, event = null) {
+    setPage(i, event = null) {
       if (i > 0 && i <= this.totalPages) {
         this.$emit('update:currentPage', i)
       }
@@ -55,7 +56,7 @@ export default {
     },
     // Adapted with love from will_paginate gem:
     //  https://github.com/mislav/will_paginate/blob/master/lib/will_paginate/view_helpers/link_renderer_base.rb#L28
-    windowedPageNumbers () {
+    windowedPageNumbers() {
       if (this.totalPages === 0) {
         return []
       }
@@ -82,16 +83,22 @@ export default {
       // left window
       if (this.paginationOuterWindow + 3 < middle[0]) {
         // there's a pagination gap
-        left = range(1, (this.paginationOuterWindow + 2))
+        left = range(1, this.paginationOuterWindow + 2)
         left.push('gap')
       } else {
         // runs into visible pages
         left = range(1, middle[0])
       }
       // right window
-      if (this.totalPages - this.paginationOuterWindow - 2 > middle[middle.length - 1]) {
+      if (
+        this.totalPages - this.paginationOuterWindow - 2 >
+        middle[middle.length - 1]
+      ) {
         // again, gap
-        right = range((this.totalPages - this.paginationOuterWindow), this.totalPages + 1)
+        right = range(
+          this.totalPages - this.paginationOuterWindow,
+          this.totalPages + 1
+        )
         right.unshift('gap')
       } else {
         // runs into visible pages

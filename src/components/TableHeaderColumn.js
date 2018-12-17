@@ -1,4 +1,6 @@
-import startCase from 'lodash/startCase'
+import { startCase } from '../utils/Helpers'
+
+// import startCase from 'lodash/startCase'
 
 export default {
   props: {
@@ -9,6 +11,7 @@ export default {
     content: {
       default() {
         return startCase(this.name)
+        // return this.name
       }
     },
     formatter: {

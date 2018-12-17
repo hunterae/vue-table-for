@@ -1,6 +1,7 @@
 import PaginatedTableFor from './PaginatedTableFor'
-import omit from 'lodash/omit'
-import flatten from 'lodash/flatten'
+import { omit, flatten } from '../utils/Helpers'
+// import omit from 'lodash/omit'
+// import flatten from 'lodash/flatten'
 
 export default {
   components: {

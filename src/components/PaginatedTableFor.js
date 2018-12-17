@@ -1,6 +1,7 @@
 import TableFor from './TableFor'
 import PaginationLinks from './PaginationLinks'
-import flatten from 'lodash/flatten'
+import { flatten } from '../utils/Helpers'
+// import flatten from 'lodash/flatten'
 
 export default {
   components: {
