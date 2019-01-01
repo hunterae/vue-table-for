@@ -742,6 +742,14 @@
     postcss-modules-sync "^1.0.0"
     source-map "0.6.*"
 
+"@vue/eslint-config-prettier@^4.0.0":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@vue/eslint-config-prettier/-/eslint-config-prettier-4.0.1.tgz#a036d0d2193c5c836542b35a3a7c35c4e1c68c97"
+  dependencies:
+    eslint-config-prettier "^3.3.0"
+    eslint-plugin-prettier "^3.0.0"
+    prettier "^1.15.2"
+
 "@vue/preload-webpack-plugin@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@vue/preload-webpack-plugin/-/preload-webpack-plugin-1.1.0.tgz#d768dba004261c029b53a77c5ea2d5f9ee4f3cce"
@@ -1330,6 +1338,10 @@ bonjour@^3.5.0:
 boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
+
+bootstrap-sass@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/bootstrap-sass/-/bootstrap-sass-3.4.0.tgz#b1c330a56782347f626d31d497fa4aea16b3f99b"
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -5856,7 +5868,7 @@ prettier@1.13.7:
   version "1.13.7"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.13.7.tgz#850f3b8af784a49a6ea2d2eaa7ed1428a34b7281"
 
-prettier@^1.15.3:
+prettier@^1.15.2, prettier@^1.15.3:
   version "1.15.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-1.15.3.tgz#1feaac5bdd181237b54dbe65d874e02a1472786a"
 
@@ -7488,6 +7500,10 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
 
+vue-inherit-slots@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/vue-inherit-slots/-/vue-inherit-slots-0.1.1.tgz#f1e42fa880071c1d7ca2795964a6dae6255a82ff"
+
 vue-loader@^15.4.2:
   version "15.4.2"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.4.2.tgz#812bb26e447dd3b84c485eb634190d914ce125e2"
@@ -7510,6 +7526,12 @@ vue-markdown-loader@^2.4.1:
 vue-prism-component@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vue-prism-component/-/vue-prism-component-1.1.1.tgz#df0e375f7f9b367b069b2d54e6ed86facde96030"
+
+vue-slot-hooks@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vue-slot-hooks/-/vue-slot-hooks-0.2.0.tgz#2bf6ed3b76b5efd9182460d04dbe5dc37fe3a2b4"
+  dependencies:
+    vue-inherit-slots "^0.1.1"
 
 vue-style-loader@^4.1.0:
   version "4.1.2"

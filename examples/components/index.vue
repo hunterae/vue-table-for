@@ -37,6 +37,10 @@ import LocalPaginatedExampleSource from '!raw-loader!./LocalPaginatedExample'
 import RemotePaginatedExample from './RemotePaginatedExample'
 import RemotePaginatedExampleSource from '!raw-loader!./RemotePaginatedExample'
 
+// Hooks
+import HooksBasicExample from './hooks/BasicExample'
+import HooksBasicExampleSource from '!raw-loader!./hooks/BasicExample'
+
 let examples = {
   'Configuring Columns': [
     {
@@ -75,7 +79,7 @@ let examples = {
       component: CustomHeaderExample
     }
   ],
-  'Configuring Rows': [],
+  // 'Configuring Rows': [],
   'Configuring Footer': [
     {
       source: CustomFooterExampleSource,
@@ -94,6 +98,13 @@ let examples = {
       title: 'Remote Data Pagination Example',
       component: RemotePaginatedExample
     }
+  ],
+  'Using Hooks': [
+    // {
+    //   source: HooksBasicExampleSource,
+    //   title: 'Using Hooks Basic Example',
+    //   component: HooksBasicExample
+    // }
   ]
 }
 

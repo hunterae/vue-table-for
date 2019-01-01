@@ -2,8 +2,8 @@
   <TableFor
     :records="records"
     class="table table-hover 
-      table-striped table-bordered">>
-    <th slot="first_name" style="color: red">
+      table-striped table-bordered">
+    <th slot="first_name_header" style="color: red">
       <i class="fa fa-users"></i>
     </th>
 
@@ -23,13 +23,13 @@
 <script>
 import samplePeopleRecords from '../people.json'
 export default {
-  data () {
+  data() {
     return {
       records: samplePeopleRecords.slice(0, 10)
     }
   },
   methods: {
-    linkClicked (event) {
+    linkClicked(event) {
       event.preventDefault()
       alert('Link Clicked')
     }

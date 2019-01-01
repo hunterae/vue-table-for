@@ -59,50 +59,6 @@ export default {
 
 More documentation coming soon
 
-### PaginatedTableFor
-
-Builds a table for a collection of records with a footer consisting of pagination links for the records.
-
-It is expected that the records passed in are only the records for the current page being displayed, and the current page and total number of pages must be specified as props and managed externally, either in the parent component, or via a vuex store, or some other mechanism.
-
-```
-<template>
-  <PaginatedTableFor :records="currentPageRecords" :page.sync="currentPage" :total-pages="totalPages">
-    <td name="first_name" />
-    <td name="last_name" />
-    <td name="email" />
-  </PaginatedTableFor>
-</template>
-
-<script>
-export default {
-  props: {
-    records: Array
-  },
-  data() {
-    return {
-      perPage: 10,
-      currentPage: 1
-    }
-  },
-  computed: {
-    totalPages() {
-      return Math.ceil(this.records.length / this.perPage)
-    },
-    currentPageRecords() {
-      let recordOffset = (this.currentPage - 1) * this.perPage
-      return this.records.slice(recordOffset, recordOffset + this.perPage)
-    }
-  }
-}
-```
-
-More documentation coming soon
-
-### LocalPaginatedTableFor
-
-TODO
-
 ## Coming Soon
 
 - Tests

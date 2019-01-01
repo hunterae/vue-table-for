@@ -29,13 +29,11 @@ export default {
   },
   methods: {
     formatEmail(value) {
-      return `<a href='mailto:${value}'>${value}</a>`
-      // or:
-      // return this.$createElement(
-      //   'a',
-      //   { attrs: { href: `mailto:${value}` }},
-      //   value
-      // )
+      return this.$createElement(
+        'a',
+        { attrs: { href: `mailto:${value}` } },
+        value
+      )
     }
   },
   filters: {

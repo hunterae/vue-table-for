@@ -1,18 +1,18 @@
 <template>
-  <LocalPaginatedTableFor
+  <TableFor
     class="table table-hover 
       table-striped table-bordered"
-    :records="records">
+    :records="records" paginated paginate-internally>
     <td name="first_name" />
     <td name="last_name" />
     <td name="email" />
-  </LocalPaginatedTableFor>
+  </TableFor>
 </template>
 
 <script>
 import samplePeopleRecords from '../people.json'
 export default {
-  data () {
+  data() {
     return {
       records: samplePeopleRecords
     }

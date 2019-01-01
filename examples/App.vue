@@ -35,6 +35,7 @@
 import Doc from '../README.md'
 import Examples from './components/index'
 import 'github-markdown-css'
+import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 
 export default {
   name: 'app',
@@ -46,20 +47,20 @@ export default {
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  .jumbotron {
-    color: white;
-    background: #41b883;
-  }
+.jumbotron {
+  color: white;
+  background: #41b883;
+}
 
-  .footer {
-    margin-top: 30px;
-    padding: 20px;
-    color: white;
-    background: #41b883;
-    text-align: center;
+.footer {
+  margin-top: 30px;
+  padding: 20px;
+  color: white;
+  background: #41b883;
+  text-align: center;
 
-    a {
-      color: white;
-    }
+  a {
+    color: white;
   }
+}
 </style>

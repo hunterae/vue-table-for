@@ -14,6 +14,7 @@ import minimist from 'minimist'
 
 // More efficient transpiling than Bable
 import buble from 'rollup-plugin-buble'
+// import babel from 'rollup-plugin-babel'
 
 // Ability to resolve imports that do not provide extensions
 import resolve from 'rollup-plugin-node-resolve'
@@ -43,6 +44,7 @@ const config = {
     }),
     // cjs(),
     buble({ objectAssign: 'Object.assign' })
+    // babel({ runtimeHelpers: true })
   ]
   // external: ['lodash']
 }

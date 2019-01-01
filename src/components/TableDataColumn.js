@@ -1,3 +1,6 @@
+// import { RenderWithSlotHooks } from 'vue-slot-hooks'
+import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
+
 export default {
   props: {
     record: {
@@ -11,59 +14,55 @@ export default {
     },
     field: {
       type: String,
-      default() {
-        return this.name
-      }
+      default: null
     },
     content: {},
     formatter: {
       type: Function
+    },
+    recordVariable: {
+      type: String,
+      default: 'record'
     }
   },
-  computed: {
-    formattedContent() {
-      let formattedContent = this.content
-      if (
-        typeof formattedContent === 'undefined' &&
-        this.record.hasOwnProperty(this.field)
-      ) {
-        formattedContent = this.record[this.field]
-      }
+  functional: true,
+  render(createElement, context) {
+    let { record, content, formatter, name, field } = context.props
+    let scopedSlots = context.data.scopedSlots || {}
 
-      if (this.formatter && typeof formattedContent !== 'undefined') {
-        formattedContent = this.formatter(formattedContent, {
-          column: this,
-          record: this.record
-        })
-      }
-      return formattedContent
+    let defaultSlot = context.slots().default
+    field = field || name
+    if (typeof content === 'undefined' && record.hasOwnProperty(field)) {
+      content = record[field]
     }
-  },
-  render(createElement) {
-    let element
-    let customContent = this.$slots.default
-    let content = this.formattedContent
-    if (this.$scopedSlots.default) {
-      element = createElement(
-        'td',
-        {},
-        this.$scopedSlots.default({ record: this.record })
-      )
-    } else if (customContent) {
-      element = createElement('td', {}, customContent)
-    } else if (
-      typeof content === 'object' &&
-      (!content || content.hasOwnProperty('tag'))
-    ) {
-      element = createElement('td', {}, [content])
-    } else {
-      element = createElement('td', {
-        domProps: {
-          innerHTML: content
-        }
+
+    if (formatter && typeof content !== 'undefined') {
+      content = formatter(content, {
+        ...context.data,
+        record
       })
     }
 
-    return element
+    let children
+    if (scopedSlots.default) {
+      children = scopedSlots.default({ record: record })
+    } else if (defaultSlot) {
+      children = defaultSlot
+    } else {
+      children = [content]
+    }
+
+    return createElement(
+      RenderWithSlotHooks,
+      {
+        props: {
+          inheritSlots: true,
+          slotName: name,
+          tag: 'td',
+          passSlotsToTag: false
+        }
+      },
+      children
+    )
   }
 }

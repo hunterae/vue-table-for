@@ -1,189 +1,121 @@
-import TableDataColumn from './TableDataColumn'
-import TableHeaderColumn from './TableHeaderColumn'
-// import deepMerge from 'deepmerge'
-import {
-  omit,
-  pick,
-  flattenDeep,
-  deepMerge,
-  deepMergeAll
-} from '../utils/Helpers'
-
-// import omit from 'lodash/omit'
-// import pick from 'lodash/pick'
-// import flattenDeep from 'lodash/flattenDeep'
+import TableHeader from './TableHeader'
+import TableBody from './TableBody'
+import TableFooter from './TableFooter'
+import TableForPaginator from './TableForPaginator'
+import { InheritSlots } from 'vue-inherit-slots'
+import { pick } from 'vue-slot-hooks/src/utils/HelperUtils'
 
 export default {
-  components: {
-    TableDataColumn,
-    TableHeaderColumn
-  },
   props: {
-    records: {
-      type: Array,
-      required: true
-    },
     recordVariable: {
       type: String,
       default: 'record'
     },
-    formatter: {
-      type: Function
+    ...pick(TableHeader.props, ['header']),
+    ...pick(TableBody.props, ['records', 'rowOptions', 'formatter']),
+    ...pick(TableFooter, ['paginationLinksInFooter']),
+    ...TableForPaginator.props,
+    paginated: {
+      type: Boolean,
+      default: false
     },
-    header: {
-      default() {
-        return {}
-      }
+    paginateInternally: {
+      type: Boolean,
+      default: false
     },
-    row: {
-      default() {
-        return {}
-      }
+    totalPages: {
+      type: Number
+    }
+    // TODO: implement a way to pass the columns in as an array of hashes
+    // columns: Array
+  },
+  data() {
+    return {
+      currentPageRecords: [],
+      pages: 0,
+      page: 1
+    }
+  },
+  watch: {
+    currentPage() {
+      this.page = this.currentPage
+    },
+    totalPages() {
+      this.pages = this.totalPages
+    },
+    records: {
+      handler() {
+        this.currentPageRecords = this.records
+      },
+      immediate: true
     }
   },
   methods: {
-    // This method is a WIP. It will be updated shortly to utilize a separate Vue Plugin I am
-    //  writing called vue-slot-hooks
-    renderFirstSlotOrChildrenWithHooks({
-      tag,
-      children = [],
-      // wrapper = null,
-      data = {},
-      slotName = null
-    } = {}) {
-      let slots = null
-      if (slotName) {
-        slots = this.$slots[slotName]
-      }
-
-      if (slots) {
-        let slot = slots[0]
-        return this.$createElement(
-          slot.tag,
-          deepMerge(data, slot.data),
-          slot.children
-        )
-        // return this.$createElement(RenderWithHooks, deepMerge(slot.data || {}, { props: { suffix: `_${slotName}`, tag: slot.tag, wrapper: wrapper } }), slot.children)
-      } else {
-        return this.$createElement(tag, data, children)
-        // return this.$createElement(RenderWithHooks, { props: { suffix: `_${slotName}`, tag: tag, wrapper: wrapper } }, children)
-      }
+    handleUpdateTotalPages(totalPages) {
+      this.pages = totalPages
     },
-    createHeaderColumn(column) {
-      if (column.tag === 'td') {
-        let columnName = column.data.attrs.name
-        let header = this.header
-        if (typeof this.header === 'function') {
-          header = this.header(column)
-        }
-        let headerOptions = {
-          props: {
-            name: columnName,
-            ...pick(header, Object.keys(TableHeaderColumn.props))
-          },
-          attrs: omit(header, Object.keys(TableHeaderColumn.props))
-        }
-
-        if (column.data.attrs.hasOwnProperty('header')) {
-          header = column.data.attrs.header
-          if (typeof header === 'object') {
-            headerOptions = deepMergeAll([
-              headerOptions,
-              {
-                props: pick(header, Object.keys(TableHeaderColumn.props))
-              },
-              {
-                attrs: omit(header, Object.keys(TableHeaderColumn.props))
-              }
-            ])
-          } else {
-            headerOptions.props.content = header
-          }
-        }
-        return this.renderFirstSlotOrChildrenWithHooks({
-          slotName: columnName,
-          tag: TableHeaderColumn,
-          data: headerOptions
-        })
-      }
+    handleUpdateCurrentPageRecords(records) {
+      this.currentPageRecords = records
     },
-    createDataColumn(column, record) {
-      if (column.tag === 'td') {
-        let dataOptions = deepMergeAll([
-          omit(column.data, 'attrs'),
-          {
-            attrs: omit(
-              column.data.attrs,
-              ...Object.keys(TableDataColumn.props),
-              ...Object.keys(TableHeaderColumn.props)
-            )
-          },
-          {
-            props: {
-              ...pick(this.$props, ...Object.keys(TableDataColumn.props)),
-              ...pick(column.data.attrs, ...Object.keys(TableDataColumn.props)),
-              record: record
-            }
-          }
-        ])
-
-        return this.$createElement(
-          TableDataColumn,
-          dataOptions,
-          column.children
-        )
-      }
-    },
-    createDataRow(columns, record) {
-      let dataColumns = columns.map(column => {
-        return this.createDataColumn(column, record)
-      })
-      let rowOptions
-      if (typeof this.row === 'function') {
-        rowOptions = { attrs: this.row(record) }
-      } else {
-        rowOptions = { attrs: this.row }
-      }
-
-      return this.$createElement('tr', rowOptions, dataColumns)
+    handleUpdateCurrentPage(currentPage) {
+      this.page = currentPage
+      this.$emit('update:currentPage', currentPage)
     }
   },
-  render(createElement) {
-    let columns, headerColumns, dataRows, footer
-    let scopedSlot = this.$scopedSlots.default
-    if (scopedSlot) {
-      let proxyHash = new Proxy({}, { get: () => '' })
-      columns = flattenDeep(
-        scopedSlot({ [this.recordVariable]: proxyHash, table: this })
+  render(h) {
+    let scopedSlots = this.$scopedSlots || {}
+    let paginator
+    if (this.paginated) {
+      if (this.paginateInternally) {
+        paginator = h(TableForPaginator, {
+          props: {
+            ...pick(this.$props, Object.keys(TableForPaginator.props)),
+            currentPage: this.page
+          },
+          on: {
+            'update:totalPages': this.handleUpdateTotalPages,
+            'update:currentPageRecords': this.handleUpdateCurrentPageRecords
+          }
+        })
+      }
+    }
+
+    return h('table', {}, [
+      paginator,
+      h(
+        TableHeader,
+        {
+          props: pick(this.$props, Object.keys(TableHeader.props)),
+          scopedSlots
+        },
+        [h(InheritSlots, { props: { inheritDefaultSlot: true } })]
+      ),
+      h(
+        TableBody,
+        {
+          props: {
+            ...pick(this.$props, Object.keys(TableBody.props)),
+            records: this.currentPageRecords
+          },
+          scopedSlots
+        },
+        [h(InheritSlots, { props: { inheritDefaultSlot: true } })]
+      ),
+      h(
+        TableFooter,
+        {
+          props: {
+            ...pick(this.$props, Object.keys(TableFooter.props)),
+            currentPage: this.page,
+            totalPages: this.pages
+          },
+          on: {
+            'update:currentPage': this.handleUpdateCurrentPage
+          },
+          scopedSlots
+        },
+        [h(InheritSlots, { props: { inheritDefaultSlot: true } })]
       )
-      headerColumns = columns.map(this.createHeaderColumn)
-      dataRows = this.$props.records.map(record => {
-        columns = flattenDeep(
-          scopedSlot({ [this.recordVariable]: record, table: this })
-        )
-        return this.createDataRow(columns, record)
-      })
-    } else {
-      columns = this.$slots.default
-      headerColumns = columns.map(this.createHeaderColumn)
-      dataRows = this.$props.records.map(record => {
-        return this.createDataRow(columns, record)
-      })
-    }
-
-    // let header = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'header', tag: 'tr', children: headerColumns, wrapper: 'thead' })
-    let header = createElement('thead', {}, [
-      createElement('tr', headerColumns)
     ])
-    // let body = this.renderFirstSlotOrChildrenWithHooks({ slotName: 'body', tag: 'tbody', children: dataRows })
-    let body = createElement('tbody', {}, dataRows)
-
-    if (this.$scopedSlots.footer) {
-      footer = this.$scopedSlots.footer({ columns: headerColumns, table: this })
-    } else if (this.$slots.footer) {
-      footer = this.$slots.footer
-    }
-
-    return createElement('table', this.$attrs, [header, body, footer])
   }
 }

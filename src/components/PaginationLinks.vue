@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import { range } from '../utils/Helpers'
-// import range from 'lodash/range'
+import { range } from '../utils/HelperUtils'
 
 export default {
   props: {

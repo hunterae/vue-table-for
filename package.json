@@ -1,7 +1,7 @@
 {
   "name": "vue-table-for",
   "description": "vue-table-for is a table builder for an array of objects, easily allowing overriding of how any aspect of the table is generated",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "author": {
     "name": "Andrew Hunter",
     "email": "hunterae@gmail.com"
@@ -56,8 +56,10 @@
     "@vue/cli-plugin-babel": "^3.0.4",
     "@vue/cli-plugin-eslint": "^3.0.4",
     "@vue/cli-service": "^3.0.4",
+    "@vue/eslint-config-prettier": "^4.0.0",
     "axios": "^0.18.0",
     "babel-eslint": "^10.0.1",
+    "bootstrap-sass": "^3.4.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-config-prettier": "^3.3.0",
@@ -101,5 +103,7 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "vue-slot-hooks": "^0.2.0"
+  }
 }
