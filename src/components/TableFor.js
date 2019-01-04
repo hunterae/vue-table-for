@@ -48,6 +48,9 @@ export default {
         this.currentPageRecords = this.records
       },
       immediate: true
+    },
+    paginated() {
+      this.currentPageRecords = this.records
     }
   },
   methods: {

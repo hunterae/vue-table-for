@@ -1,5 +1,6 @@
 // import { RenderWithSlotHooks } from 'vue-slot-hooks'
 import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
+import { omit } from 'vue-slot-hooks/src/utils/HelperUtils'
 
 export default {
   props: {
@@ -42,7 +43,6 @@ export default {
         record
       })
     }
-
     let children
     if (scopedSlots.default) {
       children = scopedSlots.default({ record: record })
@@ -59,6 +59,7 @@ export default {
           inheritSlots: true,
           slotName: name,
           tag: 'td',
+          tagData: omit(context.data, ['props']),
           passSlotsToTag: false
         }
       },

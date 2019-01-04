@@ -20,5 +20,6 @@ module.exports = {
       .options({
         raw: true
       })
-  }
+  },
+  runtimeCompiler: true
 }

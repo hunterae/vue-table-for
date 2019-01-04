@@ -25,7 +25,7 @@ export default {
     let listeners = context.listeners || {}
     let scopedSlot = scopedSlots.default
     let defaultSlot = context.slots().default
-    let { recordVariable, paginated } = context.props
+    let { recordVariable, paginated, totalPages } = context.props
 
     let columns
     if (scopedSlot) {
@@ -37,7 +37,7 @@ export default {
     columns = columns.filter(column => column.tag === 'td')
 
     let childScopedSlots = {}
-    if (paginated) {
+    if (paginated && totalPages > 1) {
       childScopedSlots.footer = () => {
         return h('tfoot', [
           h('tr', [
