@@ -12,7 +12,7 @@ export default {
       default: 'record'
     },
     ...pick(TableHeader.props, ['header']),
-    ...pick(TableBody.props, ['records', 'rowOptions', 'formatter']),
+    ...pick(TableBody.props, ['records', 'rowOptions', 'formatter', 'body']),
     ...pick(TableFooter, ['paginationLinksInFooter']),
     ...TableForPaginator.props,
     paginated: {

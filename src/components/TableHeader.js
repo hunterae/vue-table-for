@@ -1,8 +1,8 @@
 import TableHeaderColumn from './TableHeaderColumn'
 import { pick } from 'vue-slot-hooks/src/utils/HelperUtils'
 
-// import { RenderWithSlotHooks } from 'vue-slot-hooks'
-import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
+import { RenderWithSlotHooks } from 'vue-slot-hooks'
+// import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
 
 export default {
   functional: true,

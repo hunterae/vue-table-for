@@ -1,5 +1,5 @@
-// import { RenderWithSlotHooks } from 'vue-slot-hooks'
-import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
+import { RenderWithSlotHooks } from 'vue-slot-hooks'
+// import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
 import { omit } from 'vue-slot-hooks/src/utils/HelperUtils'
 
 export default {

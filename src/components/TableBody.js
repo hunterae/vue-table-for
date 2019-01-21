@@ -1,14 +1,20 @@
 import TableDataRow from './TableDataRow'
 import { pick } from 'vue-slot-hooks/src/utils/HelperUtils'
 
-// import { RenderWithSlotHooks } from 'vue-slot-hooks'
-import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
+import { RenderWithSlotHooks } from 'vue-slot-hooks'
+// import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
 
 export default {
   props: {
     records: {
       type: Array,
       required: true
+    },
+    body: {
+      type: Object,
+      default() {
+        return {}
+      }
     },
     ...pick(TableDataRow.props, ['recordVariable', 'formatter'])
   },
@@ -17,7 +23,7 @@ export default {
     let scopedSlots = context.data.scopedSlots || {}
     let scopedSlot = scopedSlots.default
     let defaultSlot = context.slots().default
-    let { recordVariable, records } = context.props
+    let { recordVariable, records, body } = context.props
 
     return h(
       RenderWithSlotHooks,
@@ -26,6 +32,7 @@ export default {
           inheritSlots: true,
           slotName: 'body',
           tag: 'tbody',
+          tagData: body,
           passSlotsToTag: false
         }
       },

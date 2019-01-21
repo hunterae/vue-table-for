@@ -1,7 +1,7 @@
 import { startCase } from '../utils/HelperUtils'
 import { omit, pick } from 'vue-slot-hooks/src/utils/HelperUtils'
-// import { RenderWithSlotHooks } from 'vue-slot-hooks'
-import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
+import { RenderWithSlotHooks } from 'vue-slot-hooks'
+// import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
 
 export default {
   props: {

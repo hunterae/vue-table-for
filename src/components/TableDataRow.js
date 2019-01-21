@@ -1,10 +1,10 @@
 import TableDataColumn from './TableDataColumn'
 import TableHeaderColumn from './TableHeaderColumn'
 
-// import { RenderWithSlotHooks } from 'vue-slot-hooks'
-import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
+import { RenderWithSlotHooks } from 'vue-slot-hooks'
+// import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
 
-import { omit, pick, deepMergeAll } from 'vue-slot-hooks/src/utils/HelperUtils'
+import { omit, pick } from 'vue-slot-hooks/src/utils/HelperUtils'
 
 export default {
   functional: true,
@@ -29,6 +29,7 @@ export default {
     } else {
       rowOptions = { attrs: rowOptions }
     }
+    rowOptions.key = `record-${record.id}`
     rowOptions.props = {
       record: record
     }
