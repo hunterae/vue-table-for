@@ -2,9 +2,9 @@
 //  180kb to the generated lib files
 // Other HelperUtils will be imported from the vue-slot-hooks plugin
 
-// Adapted from https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore
+// Adapted from https://stackoverflow.com/a/41246860/400699
 export function range(start, end) {
-  return [...Array(end - start).keys()].map(k => k + start)
+  return Array.apply(null, Array(end - start)).map((k, index) => index + start)
 }
 
 // Based partially on https://github.com/sindresorhus/titleize
