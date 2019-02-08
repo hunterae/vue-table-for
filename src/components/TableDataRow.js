@@ -13,7 +13,7 @@ export default {
       type: Array,
       required: true
     },
-    rowOptions: {
+    dataRow: {
       default() {
         return {}
       }
@@ -22,15 +22,15 @@ export default {
   },
 
   render(h, context) {
-    let { columns, rowOptions, record } = context.props
+    let { columns, dataRow, record } = context.props
 
-    if (typeof rowOptions === 'function') {
-      rowOptions = { attrs: rowOptions(record) }
+    if (typeof dataRow === 'function') {
+      dataRow = dataRow(record)
     } else {
-      rowOptions = { attrs: rowOptions }
+      dataRow = { ...dataRow }
     }
-    rowOptions.key = `record-${record.id}`
-    rowOptions.props = {
+    if (!dataRow.key) dataRow.key = `record-${record.id}`
+    dataRow.props = {
       record: record
     }
 
@@ -41,7 +41,7 @@ export default {
           inheritSlots: true,
           slotName: 'data_row',
           tag: 'tr',
-          tagData: rowOptions,
+          tagData: dataRow,
           passSlotsToTag: false
         }
       },

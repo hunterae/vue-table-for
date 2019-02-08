@@ -16,7 +16,7 @@ export default {
         return {}
       }
     },
-    ...pick(TableDataRow.props, ['recordVariable', 'formatter'])
+    ...pick(TableDataRow.props, ['recordVariable', 'formatter', 'dataRow'])
   },
   functional: true,
   render(h, context) {

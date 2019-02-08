@@ -10,7 +10,7 @@
         v-for="i in windowedPageNumbers()"
         :class="{ active: i === currentPage}"
         :key="`page-${i}`">
-        <span v-if="i === 'gap'" class="gap">…</span>
+        <span v-if="i === 'gap1' || i === 'gap2'" class="gap">…</span>
         <a v-else href="#" @click.prevent="setPage(i, $event)">{{i}}</a>
       </li>
       <li :class="{ disabled: currentPage === totalPages }">
@@ -83,7 +83,7 @@ export default {
       if (this.paginationOuterWindow + 3 < middle[0]) {
         // there's a pagination gap
         left = range(1, this.paginationOuterWindow + 2)
-        left.push('gap')
+        left.push('gap1')
       } else {
         // runs into visible pages
         left = range(1, middle[0])
@@ -98,7 +98,7 @@ export default {
           this.totalPages - this.paginationOuterWindow,
           this.totalPages + 1
         )
-        right.unshift('gap')
+        right.unshift('gap2')
       } else {
         // runs into visible pages
         right = range(middle[middle.length - 1] + 1, this.totalPages + 1)
