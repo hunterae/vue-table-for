@@ -1,7 +1,7 @@
 {
   "name": "vue-table-for",
   "description": "vue-table-for is a table builder for an array of objects, easily allowing overriding of how any aspect of the table is generated",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "Andrew Hunter",
     "email": "hunterae@gmail.com"
@@ -105,6 +105,6 @@
     "not ie <= 8"
   ],
   "dependencies": {
-    "vue-slot-hooks": "^0.2.0"
+    "vue-slot-hooks": "^0.2.1"
   }
 }
