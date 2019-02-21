@@ -68,6 +68,7 @@
               v-if="htmlSourceCode"
               :html-source-code="htmlSourceCode"
               :records="records"
+              :per-page="tableOptions.perPage"
             />
           </section>
         </div>

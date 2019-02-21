@@ -17,6 +17,9 @@ export default {
     records: {
       type: Array,
       required: true
+    },
+    perPage: {
+      type: Number
     }
   },
   methods: {
