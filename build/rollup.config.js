@@ -21,12 +21,18 @@ import resolve from 'rollup-plugin-node-resolve'
 
 const argv = minimist(process.argv.slice(2))
 
+const globals = {
+  'vue-slot-hooks': 'VueSlotHooks',
+  'vue-inherit-slots': 'VueInheritSlots'
+}
+
 const config = {
   external: ['vue-slot-hooks', 'vue-inherit-slots'],
   input: 'src/plugin.js',
   output: {
     name: 'VueTableFor',
-    exports: 'named'
+    exports: 'named',
+    globals: globals
   },
   plugins: [
     resolve({

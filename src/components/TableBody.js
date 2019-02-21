@@ -43,6 +43,7 @@ export default {
         } else {
           columns = defaultSlot
         }
+
         columns = columns.filter(column => column.tag === 'td')
 
         return h(TableDataRow, {

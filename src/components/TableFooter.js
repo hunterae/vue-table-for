@@ -37,7 +37,7 @@ export default {
     columns = columns.filter(column => column.tag === 'td')
 
     let childScopedSlots = {}
-    if (paginated && totalPages > 1) {
+    if (paginated && totalPages > 1 && !context.slots().footer) {
       childScopedSlots.footer = () => {
         return h('tfoot', [
           h('tr', [

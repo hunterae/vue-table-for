@@ -1,7 +1,7 @@
 {
   "name": "vue-table-for",
   "description": "vue-table-for is a table builder for an array of objects, easily allowing overriding of how any aspect of the table is generated",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": {
     "name": "Andrew Hunter",
     "email": "hunterae@gmail.com"
@@ -81,7 +81,7 @@
     "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^4.3.2",
     "sass-loader": "^7.1.0",
-    "v-runtime-template": "^1.5.2",
+    "v-runtime-template": "1.5.2",
     "vue": "^2.5.17",
     "vue-markdown-loader": "^2.4.1",
     "vue-prism-component": "^1.1.1",
@@ -105,6 +105,6 @@
     "not ie <= 8"
   ],
   "dependencies": {
-    "vue-slot-hooks": "^0.2.1"
+    "vue-slot-hooks": "^0.2.2"
   }
 }

@@ -2,19 +2,28 @@
   <nav aria-label="Page navigation" align="right">
     <ul class="pagination">
       <li :class="{ disabled: currentPage === 1 }">
-        <a href="#" aria-label="Previous" @click.prevent="setPage(currentPage - 1, $event)">
+        <a
+          href="#"
+          aria-label="Previous"
+          @click.prevent="setPage(currentPage - 1, $event)"
+        >
           <span aria-hidden="true">&laquo;</span>
         </a>
       </li>
       <li
         v-for="i in windowedPageNumbers()"
-        :class="{ active: i === currentPage}"
-        :key="`page-${i}`">
+        :class="{ active: i === currentPage }"
+        :key="`page-${i}`"
+      >
         <span v-if="i === 'gap1' || i === 'gap2'" class="gap">…</span>
-        <a v-else href="#" @click.prevent="setPage(i, $event)">{{i}}</a>
+        <a v-else href="#" @click.prevent="setPage(i, $event)">{{ i }}</a>
       </li>
       <li :class="{ disabled: currentPage === totalPages }">
-        <a href="#" aria-label="Next" @click.prevent="setPage(currentPage + 1, $event)">
+        <a
+          href="#"
+          aria-label="Next"
+          @click.prevent="setPage(currentPage + 1, $event)"
+        >
           <span aria-hidden="true">&raquo;</span>
         </a>
       </li>

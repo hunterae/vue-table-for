@@ -7441,9 +7441,10 @@ uuid@^3.0.1, uuid@^3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
-v-runtime-template@^1.5.2:
+v-runtime-template@1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/v-runtime-template/-/v-runtime-template-1.5.2.tgz#1260a329980ae8a37ffcc6c73bdab5858393b5f8"
+  integrity sha512-cYXqoMx02V8ffNr6SeL3v30xN6E9gT+EK63kIZS6ikpoSxBRtsZTXSO3TbWsVGb3cKenDNw9PfYHmY3WQxxhLA==
 
 validate-npm-package-license@^3.0.1:
   version "3.0.4"
@@ -7507,6 +7508,7 @@ vue-hot-reload-api@^2.3.0:
 vue-inherit-slots@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/vue-inherit-slots/-/vue-inherit-slots-0.1.1.tgz#f1e42fa880071c1d7ca2795964a6dae6255a82ff"
+  integrity sha512-WXpU3+vTFm6kV/1MJ/6wQaboIYO0M3wfXN4Q+fiGPbk25WWyud9y5TQdlgZX0Xc13TZ0oFOtmyRJVPHbjeabWw==
 
 vue-loader@^15.4.2:
   version "15.4.2"
@@ -7531,10 +7533,10 @@ vue-prism-component@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/vue-prism-component/-/vue-prism-component-1.1.1.tgz#df0e375f7f9b367b069b2d54e6ed86facde96030"
 
-vue-slot-hooks@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/vue-slot-hooks/-/vue-slot-hooks-0.2.1.tgz#11200fa0e3a7a3fa442722973184d3b176c5e428"
-  integrity sha512-vePFs3+/wK/AHH9ngrjmsvstZBwiokR2/TsPJZow8FIESfYwL08faiKj/fv/d8/Lytj3CWNY+R3Ya5IdAKAxJA==
+vue-slot-hooks@^0.2.2:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/vue-slot-hooks/-/vue-slot-hooks-0.2.3.tgz#4a9c26666a4eabb4c94703609b9dec4f878b0c60"
+  integrity sha512-FYQO0cYwmEvQaCj6JBgy8A7bIsTeJSMAVPGAwWODxfhmWCm1nprTDv4iwAPm1/WN/X2mQCCHSpz+MYuZ0b9ijw==
   dependencies:
     vue-inherit-slots "^0.1.1"
 

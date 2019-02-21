@@ -36,7 +36,6 @@ export default {
     if (typeof content === 'undefined' && record.hasOwnProperty(field)) {
       content = record[field]
     }
-
     if (formatter && typeof content !== 'undefined') {
       content = formatter(content, {
         ...context.data,

@@ -24,7 +24,8 @@ export default {
       default: false
     },
     totalPages: {
-      type: Number
+      type: Number,
+      default: 0
     }
     // TODO: implement a way to pass the columns in as an array of hashes
     // columns: Array
@@ -37,11 +38,17 @@ export default {
     }
   },
   watch: {
-    currentPage() {
-      this.page = this.currentPage
+    currentPage: {
+      handler() {
+        this.page = this.currentPage
+      },
+      immediate: true
     },
-    totalPages() {
-      this.pages = this.totalPages
+    totalPages: {
+      handler() {
+        this.pages = this.totalPages
+      },
+      immediate: true
     },
     records: {
       handler() {
