@@ -1,10 +1,81 @@
 <template>
   <accordion>
     <template slot-scope="{ activeSection }">
-      <accordion-section title="Records" :active-section="activeSection">
-        <text-area-input v-model="rawRecords" rows="10" />
+      <accordion-section
+        title="Preconfigured Examples"
+        :active-section="activeSection"
+      >
+        <radio-input
+          :checked="preset"
+          @input="setPreset"
+          label="Bare Bones"
+          value="bare-bones"
+          help="Three Simple columns with names matching a field on the records"
+        />
+
+        <hr />
+
+        <radio-input
+          :checked="preset"
+          @input="setPreset"
+          label="Custom Data Column"
+          value="custom-data-column"
+          help="Custom definition provided for one of the table data columns"
+        />
+
+        <hr />
+
+        <radio-input
+          :checked="preset"
+          @input="setPreset"
+          label="Basic Pagination"
+          value="basic-paginated"
+          help="Simple pagination example wherein the component internally handles the pagination. (This should only been done when all of the data if provided to the table upfront)"
+        />
+
+        <hr />
+
+        <radio-input
+          :checked="preset"
+          @input="setPreset"
+          label="Manual Pagination"
+          value="manually-paginated"
+          help="Pagination logic is performed outside the component, such as when each page of data needs to be fetched from the server or the pagination is handled with a Vuex store"
+        />
+
+        <hr />
+
+        <radio-input
+          :checked="preset"
+          @input="setPreset"
+          label="Custom Formatters"
+          value="custom-formatters"
+          help="Set a default formatter for all columns and override on a column by column basis"
+        />
+        <hr />
+
+        <radio-input
+          :checked="preset"
+          @input="setPreset"
+          label="Custom Headers"
+          value="custom-headers"
+          help="Configure the header label in the column definition or via a slot"
+        />
+        <hr />
+
+        <radio-input
+          :checked="preset"
+          label="Custom Options"
+          value="custom"
+          help="Configure your own set of options below"
+          disabled
+        />
       </accordion-section>
-      <accordion-section title="Columns" :active-section="activeSection">
+
+      <accordion-section
+        title="Configure Columns"
+        :active-section="activeSection"
+      >
         <checkbox-input
           v-model="tableOptions.columns.id"
           label="Include ID column"
@@ -19,7 +90,11 @@
         <select-input
           v-model="tableOptions.columnFormatters.firstName"
           label="Formatter"
-          :options="[null, 'upper', 'lower']"
+          :options="[
+            null,
+            { value: 'upper', label: 'Uppercase' },
+            { value: 'lower', label: 'Lowercase' }
+          ]"
           v-if="tableOptions.columns.firstName"
         />
         <hr />
@@ -31,7 +106,11 @@
         <select-input
           v-model="tableOptions.columnFormatters.lastName"
           label="Formatter"
-          :options="[null, 'upper', 'lower']"
+          :options="[
+            null,
+            { value: 'upper', label: 'Uppercase' },
+            { value: 'lower', label: 'Lowercase' }
+          ]"
           v-if="tableOptions.columns.lastName"
         />
         <hr />
@@ -56,7 +135,12 @@
         <select-input
           v-model="tableOptions.columnFormatters.email"
           label="Formatter"
-          :options="[null, 'upper', 'lower', 'email']"
+          :options="[
+            null,
+            { value: 'upper', label: 'Uppercase' },
+            { value: 'lower', label: 'Lowercase' },
+            { value: 'email', label: 'Email Link' }
+          ]"
           v-if="tableOptions.columns.email"
         />
         <hr />
@@ -73,16 +157,24 @@
         <select-input
           v-model="tableOptions.defaultColumnFormatter"
           label="Default Column Formatter"
-          :options="[null, 'upper', 'lower']"
+          :options="[
+            null,
+            { value: 'upper', label: 'Uppercase' },
+            { value: 'lower', label: 'Lowercase' }
+          ]"
         />
       </accordion-section>
-      <accordion-section title="Pagination" :active-section="activeSection">
+
+      <accordion-section
+        title="Configure Pagination"
+        :active-section="activeSection"
+      >
         <checkbox-input
           v-model="tableOptions.paginated"
           label="Paginate the Data"
         />
         <select-input
-          v-model="tableOptions.perPage"
+          v-model.number="tableOptions.perPage"
           label="Per Page"
           :options="[1, 5, 10, 20, 25]"
           :disabled="!tableOptions.paginated"
@@ -96,7 +188,11 @@
                       remote api, uncheck this flag"
         />
       </accordion-section>
-      <accordion-section title="Headers" :active-section="activeSection">
+
+      <accordion-section
+        title="Configure Headers"
+        :active-section="activeSection"
+      >
         <template v-if="tableOptions.columns.id">
           <checkbox-input
             v-model="tableOptions.includeCustomIdHeader"
@@ -134,17 +230,37 @@
         <select-input
           v-model="tableOptions.defaultHeaderFormatter"
           label="Default Header Formatter"
-          :options="[null, 'upper', 'lower']"
+          :options="[
+            null,
+            { value: 'upper', label: 'Uppercase' },
+            { value: 'lower', label: 'Lowercase' }
+          ]"
         />
       </accordion-section>
-      <accordion-section title="Rows" :active-section="activeSection">
+
+      <accordion-section title="Configure Rows" :active-section="activeSection">
         <select-input
           v-model="tableOptions.dataRowOptions"
-          label="Apply different classes to each data row?"
-          :options="[null, 'fourValueCycle', 'evenOddCycle']"
+          label="Apply
+        different classes to each data row?"
+          :options="[
+            null,
+            {
+              value: 'fourValueCycle',
+              label: 'Cycle between four different classes'
+            },
+            {
+              value: 'evenOddCycle',
+              label: 'Cycle between classes of \'even\' and \'odd\''
+            }
+          ]"
         />
       </accordion-section>
-      <accordion-section title="Footer" :active-section="activeSection">
+
+      <accordion-section
+        title="Configure Footer"
+        :active-section="activeSection"
+      >
         <checkbox-input
           v-model="tableOptions.includeCustomFooter"
           label="Include a Custom Footer"
@@ -155,6 +271,13 @@
           v-if="tableOptions.includeCustomFooter"
         />
       </accordion-section>
+
+      <accordion-section
+        title="Configure Records"
+        :active-section="activeSection"
+      >
+        <text-area-input v-model="rawRecords" rows="10" />
+      </accordion-section>
     </template>
   </accordion>
 </template>
@@ -164,8 +287,59 @@ import samplePeopleRecords from '../../people.json'
 import Accordion from '../Accordion'
 import AccordionSection from '../AccordionSection.vue'
 import CheckboxInput from '../inputs/CheckboxInput'
+import RadioInput from '../inputs/RadioInput'
 import SelectInput from '../inputs/SelectInput'
 import TextAreaInput from '../inputs/TextAreaInput'
+
+let defaultTableOptions = (preset = 'bare-bones') => {
+  let bareBones = preset === 'bare-bones'
+  let customDataColumn = preset === 'custom-data-column'
+  let basicPaginated = preset === 'basic-paginated'
+  let manuallyPaginated = preset === 'manually-paginated'
+  let customFormatters = preset === 'custom-formatters'
+  let customHeaders = preset === 'custom-headers'
+
+  return {
+    columns: {
+      id: customHeaders,
+      firstName:
+        bareBones || basicPaginated || manuallyPaginated || customFormatters,
+      lastName:
+        bareBones || basicPaginated || manuallyPaginated || customFormatters,
+      fullName: customDataColumn || customHeaders,
+      email:
+        bareBones ||
+        customDataColumn ||
+        basicPaginated ||
+        manuallyPaginated ||
+        customFormatters ||
+        customHeaders
+    },
+    paginated: basicPaginated || manuallyPaginated,
+    paginateInternally: basicPaginated,
+    perPage: 10,
+    specifyDataFieldSeparately: false,
+    specifyColumnHeadersSeparately: customHeaders,
+    defaultScopedSlot: false,
+    includeCustomIdHeader: false,
+    includeCustomFirstNameHeader: false,
+    includeCustomLastNameHeader: false,
+    includeCustomFullNameHeader: false,
+    includeCustomEmailHeader: customHeaders,
+    includeCustomFooter: false,
+    slotScopedFooter: true,
+    columnFormatters: {
+      firstName: null,
+      lastName: customFormatters ? 'lower' : null,
+      fullName: null,
+      email: customFormatters ? 'email' : null
+    },
+    defaultColumnFormatter: customFormatters ? 'upper' : null,
+    defaultHeaderFormatter: null,
+    fullNameContentProperty: false,
+    dataRowOptions: false
+  }
+}
 
 export default {
   components: {
@@ -173,43 +347,20 @@ export default {
     AccordionSection,
     CheckboxInput,
     SelectInput,
-    TextAreaInput
+    TextAreaInput,
+    RadioInput
+  },
+  props: {
+    preset: {
+      type: String,
+      default: 'bare-bones'
+    }
   },
   data() {
     return {
       rawRecords: JSON.stringify(samplePeopleRecords, null, 2),
-      tableOptions: {
-        columns: {
-          id: false,
-          firstName: true,
-          lastName: true,
-          fullName: true,
-          email: false
-        },
-        paginated: true,
-        paginateInternally: true,
-        perPage: 10,
-        specifyDataFieldSeparately: false,
-        specifyColumnHeadersSeparately: false,
-        defaultScopedSlot: false,
-        includeCustomIdHeader: false,
-        includeCustomFirstNameHeader: false,
-        includeCustomLastNameHeader: false,
-        includeCustomFullNameHeader: false,
-        includeCustomEmailHeader: false,
-        includeCustomFooter: false,
-        slotScopedFooter: true,
-        columnFormatters: {
-          firstName: null,
-          lastName: null,
-          fullName: null,
-          email: null
-        },
-        defaultColumnFormatter: null,
-        defaultHeaderFormatter: null,
-        fullNameContentProperty: false,
-        dataRowOptions: false
-      }
+      tableOptions: defaultTableOptions(),
+      presetChoice: true
     }
   },
   computed: {
@@ -223,6 +374,20 @@ export default {
       return selected
     }
   },
+  methods: {
+    setPreset(preset) {
+      this.$router.push({ name: 'presets', params: { preset: preset } })
+
+      if (preset !== 'custom') {
+        this.presetChoice = true
+        let tableOptions = defaultTableOptions(preset)
+        this.tableOptions = tableOptions
+      }
+    }
+  },
+  mounted() {
+    this.setPreset(this.preset)
+  },
   watch: {
     rawRecords: {
       handler() {
@@ -233,7 +398,13 @@ export default {
     tableOptions: {
       handler() {
         this.$emit('update:tableOptions', this.tableOptions)
+        if (this.presetChoice) {
+          this.presetChoice = false
+        } else {
+          this.setPreset('custom')
+        }
       },
+      deep: true,
       immediate: true
     }
   }

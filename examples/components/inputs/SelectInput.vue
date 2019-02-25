@@ -7,8 +7,12 @@
       @change="$emit('input', $event.target.value)"
       v-bind="$attrs"
     >
-      <option v-for="option in options" :key="option" :value="option">
-        {{ option }}
+      <option
+        v-for="option in options"
+        :key="optionValue(option)"
+        :value="optionValue(option)"
+      >
+        {{ optionLabel(option) }}
       </option>
     </select>
   </div>
@@ -28,6 +32,22 @@ export default {
     options: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    optionValue(option) {
+      if (option && typeof option === 'object') {
+        return option.value
+      } else {
+        return option
+      }
+    },
+    optionLabel(option) {
+      if (option && typeof option === 'object') {
+        return option.label
+      } else {
+        return option
+      }
     }
   }
 }

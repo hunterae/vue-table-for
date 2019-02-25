@@ -91,6 +91,18 @@
       <html-tag tag="i" class="fa fa-users" />
     </html-tag>
 
+    <html-tag
+      tag="th"
+      v-if="
+        props.tableOptions.columns.email &&
+          props.tableOptions.includeCustomEmailHeader
+      "
+    >
+      <html-tag-attribute name="slot" value="email_header" />
+      <html-tag-attribute name="style" value="color: red" />
+      <html-tag tag="i" class="fa fa-users" />
+    </html-tag>
+
     <html-tag tag="template" :skip-tag="!props.tableOptions.defaultScopedSlot">
       <html-tag-attribute name="slot-scope" value="{ record }" />
 

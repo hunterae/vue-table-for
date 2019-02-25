@@ -3,13 +3,39 @@
       import axios from 'axios'
       export default {
         data() {
+          <text-element v-if="props.tableOptions.dataRowOptions === 'fourValueCycle'">
+            let cycleWithFourStates = ['success', 'error', 'warning', 'info']
+          </text-element>
+          <text-element v-if="props.tableOptions.dataRowOptions === 'evenOddCycle'">
+            let cycleWithTwoStates = ['even', 'odd']
+          </text-element>
           return {
             records: [],
             <text-element v-if="props.manualPagination">
               currentPage: 1,
             </text-element>
             <text-element v-if="props.paginated">
-            perPage: {{ props.perPage }}
+              perPage: {{ props.perPage }},
+            </text-element>
+            <text-element v-if="props.tableOptions.dataRowOptions === 'fourValueCycle'">
+              fourValueCycle: record => {
+                let rowClass = cycleWithFourStates.shift()
+                cycleWithFourStates.push(rowClass)
+                return {
+                  class: rowClass,
+                  id: `row-${record.id}`
+                }
+              }
+            </text-element>
+            <text-element v-if="props.tableOptions.dataRowOptions === 'evenOddCycle'">
+              evenOddCycle: record => {
+                let rowClass = cycleWithTwoStates.shift()
+                cycleWithTwoStates.push(rowClass)
+                return {
+                  class: rowClass,
+                  id: `row-${record.id}`
+                }
+              }
             </text-element>
           }
         },
@@ -81,7 +107,8 @@ export default {
     paginated: Boolean,
     perPage: Number,
     manualPagination: Boolean,
-    automaticPagination: Boolean
+    automaticPagination: Boolean,
+    tableOptions: Object
   }
 }
 </script>

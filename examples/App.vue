@@ -22,6 +22,7 @@
           <table-options
             @update:records="records = $event"
             @update:tableOptions="tableOptions = $event"
+            :preset="$route.params && $route.params.preset"
           ></table-options>
         </div>
         <div class="col-md-4">

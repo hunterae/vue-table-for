@@ -1,11 +1,12 @@
 <template>
-  <div class="checkbox">
+  <div class="radio">
     <label>
       <input
         v-bind="$attrs"
-        type="checkbox"
-        :checked="value"
-        @change="$emit('input', $event.target.checked)"
+        type="radio"
+        :checked="checked === value"
+        :value="value"
+        @change="$emit('input', $event.target.value)"
       />
       {{ label }}
     </label>
@@ -16,9 +17,15 @@
 <script>
 export default {
   inheritAttrs: false,
+  model: {
+    prop: 'checked',
+    event: 'input'
+  },
   props: {
+    checked: {
+      required: true
+    },
     value: {
-      type: Boolean,
       required: true
     },
     label: {

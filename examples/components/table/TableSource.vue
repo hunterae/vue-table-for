@@ -13,6 +13,7 @@
       :per-page="tableOptions.perPage"
       :manual-pagination="manualPagination"
       :automatic-pagination="automaticPagination"
+      :table-options="tableOptions"
     />
     <table-html-source
       :table-options="tableOptions"
@@ -78,13 +79,15 @@ export default {
       return (
         Object.values(this.tableOptions.columnFormatters).filter(
           formatter => formatter === 'upper'
-        ).length > 0
+        ).length > 0 || this.tableOptions.defaultColumnFormatter === 'upper'
       )
     },
     lowerFormattersPresent() {
       return (
         Object.values(this.tableOptions.columnFormatters).filter(
-          formatter => formatter === 'lower'
+          formatter =>
+            formatter === 'lower' ||
+            this.tableOptions.defaultColumnFormatter === 'lower'
         ).length > 0
       )
     },
