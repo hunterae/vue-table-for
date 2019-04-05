@@ -66,6 +66,7 @@ export default {
     },
     handleUpdateCurrentPageRecords(records) {
       this.currentPageRecords = records
+      this.$emit('update:currentPageRecords', records)
     },
     handleUpdateCurrentPage(currentPage) {
       this.page = currentPage
