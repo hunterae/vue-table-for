@@ -33,34 +33,18 @@
             <table-source
               v-if="tableOptions"
               :table-options="tableOptions"
-              @update:sourceCode="htmlSourceCode = $event"
-              @update:jsCode="jsCode = $event"
+              @update:template="htmlSourceCode = $event"
+              @update:script="jsCode = $event"
             ></table-source>
           </section>
         </div>
         <div class="col-md-4">
-          <form
-            action="https://codepen.io/pen/define"
-            method="POST"
-            target="_blank"
-            align="right"
-            style="float:right"
-          >
-            <input type="hidden" name="data" :value="sourceCode" />
-            <button
-              type="submit"
-              class="btn btn-primary"
-              title="Open on Codepen"
-            >
-              View on Codepen
-              <img
-                src="http://s.cdpn.io/3/cp-arrow-right.svg"
-                width="40"
-                height="40"
-                class="codepen-mover-button"
-              />
-            </button>
-          </form>
+          <view-on-codepen-button
+            :js-code="jsCode"
+            :html-code="htmlSourceCode"
+            :css-dependencies="cssDependencies"
+            :js-dependencies="jsDependencies"
+          />
           <h3>Step 3: View the Result</h3>
           <hr />
           <section id="output">
@@ -99,6 +83,7 @@ import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 import TableOptions from './components/table/TableOptions'
 import TableSource from './components/table/TableSource'
 import TableOutput from './components/table/TableOutput'
+import ViewOnCodepenButton from 'vue-source-code-builder/src/components/ViewOnCodepenButton.vue'
 
 export default {
   name: 'app',
@@ -107,36 +92,26 @@ export default {
     // Examples,
     TableOptions,
     TableSource,
-    TableOutput
+    TableOutput,
+    ViewOnCodepenButton
   },
   data() {
     return {
       records: [],
       tableOptions: null,
       htmlSourceCode: null,
-      jsCode: null
-    }
-  },
-  computed: {
-    sourceCode() {
-      if (!this.jsCode) return null
-
-      let js = `new Vue({\n\tel: "#app",\n\ttemplate: "${this.htmlSourceCode.replace(
-        /"/g,
-        "'"
-      )}", ${this.jsCode.slice(this.jsCode.indexOf('{') + 1)})`.replace(
-        'https://goo.gl/w71knn',
-        'https://raw.githubusercontent.com/hunterae/vue-table-for/master/examples/people.json'
-      )
-
-      return JSON.stringify({
-        html: '<div id="app"></div>',
-        js: js,
-        css_external:
-          'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css',
-        js_external:
-          'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js;https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js;https://unpkg.com/vue-inherit-slots;https://unpkg.com/vue-slot-hooks@0.2.3/dist/vue-slot-hooks.umd.js;https://unpkg.com/vue-table-for@0.1.6/dist/vue-table-for.umd.js'
-      })
+      jsCode: null,
+      cssDependencies: [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css',
+        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css'
+      ],
+      jsDependencies: [
+        'https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.6/vue.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js',
+        'https://unpkg.com/vue-inherit-slots',
+        'https://unpkg.com/vue-slot-hooks',
+        'https://unpkg.com/vue-table-for'
+      ]
     }
   }
 }

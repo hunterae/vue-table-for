@@ -7550,6 +7550,16 @@ vue-slot-hooks@^0.2.2:
   dependencies:
     vue-inherit-slots "^0.1.1"
 
+vue-source-code-builder@^0.0.20:
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/vue-source-code-builder/-/vue-source-code-builder-0.0.20.tgz#b5b88f552580814f6fd6eeeeb585dd48b28de11f"
+  integrity sha512-PqU0ZGHUJdXW8+e4HP9I3vYefi+vRGEPnXY5VnOTAxRm0M0KvBJqCqYeeF8oXAEEpTOGMTSE+z5IXZY88gr7cA==
+  dependencies:
+    prettier "^1.15.3"
+    prismjs "^1.15.0"
+    v-runtime-template "1.5.2"
+    vue-prism-component "^1.1.1"
+
 vue-style-loader@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/vue-style-loader/-/vue-style-loader-4.1.2.tgz#dedf349806f25ceb4e64f3ad7c0a44fba735fcf8"

@@ -1,7 +1,7 @@
 <template>
-  <VueTemplateSourceCode
-    @update:sourceCode="$emit('update:sourceCode', $event)"
-    @update:jsCode="$emit('update:jsCode', $event)"
+  <vue-sfc-source-code
+    @update:template="$emit('update:template', $event)"
+    @update:script="$emit('update:script', $event)"
   >
     <table-js-source
       slot="script"
@@ -22,27 +22,16 @@
       :total-columns="totalColumns"
       :header="header"
     />
-  </VueTemplateSourceCode>
+  </vue-sfc-source-code>
 </template>
 
 <script>
-import VueTemplateSourceCode from '../source_code_builder/VueTemplateSourceCode'
-import HtmlTag from '../source_code_builder/HtmlTag'
-import HtmlTagAttribute from '../source_code_builder/HtmlTagAttribute'
-import TextElement from '../source_code_builder/TextElement'
 import TableHtmlSource from './TableHtmlSource'
 import TableJsSource from './TableJsSource'
 import TableColumnSource from './TableColumnSource'
 
 export default {
   components: {
-    VueTemplateSourceCode,
-    // eslint-disable-next-line vue/no-unused-components
-    HtmlTag,
-    // eslint-disable-next-line vue/no-unused-components
-    HtmlTagAttribute,
-    // eslint-disable-next-line vue/no-unused-components
-    TextElement,
     TableHtmlSource,
     TableJsSource,
     // eslint-disable-next-line vue/no-unused-components

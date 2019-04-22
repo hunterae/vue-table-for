@@ -3,7 +3,9 @@
       import axios from 'axios'
       export default {
         data() {
-          <text-element v-if="props.tableOptions.dataRowOptions === 'fourValueCycle'">
+          <text-element
+  v-if="props.tableOptions.dataRowOptions === 'fourValueCycle'"
+>
             let cycleWithFourStates = ['success', 'error', 'warning', 'info']
           </text-element>
           <text-element v-if="props.tableOptions.dataRowOptions === 'evenOddCycle'">
@@ -88,7 +90,7 @@
           </text-element>
         },
         mounted() {
-          axios.get('https://goo.gl/w71knn')
+          axios.get('https://raw.githubusercontent.com/hunterae/vue-table-for/master/examples/people.json')
             .then(response => {
               this.records = response.data
             })

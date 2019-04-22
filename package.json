@@ -71,7 +71,6 @@
     "minimist": "^1.2.0",
     "node-sass": "^4.10.0",
     "prettier": "^1.15.3",
-    "prismjs": "^1.15.0",
     "raw-loader": "^0.5.1",
     "rollup": "^0.67.4",
     "rollup-plugin-babel": "^4.1.0",
@@ -81,12 +80,11 @@
     "rollup-plugin-uglify-es": "0.0.1",
     "rollup-plugin-vue": "^4.3.2",
     "sass-loader": "^7.1.0",
-    "v-runtime-template": "1.5.2",
     "vue": "^2.5.17",
     "vue-ga": "^1.0.0",
     "vue-markdown-loader": "^2.4.1",
-    "vue-prism-component": "^1.1.1",
     "vue-router": "^3.0.2",
+    "vue-source-code-builder": "^0.0.20",
     "vue-template-compiler": "^2.5.17"
   },
   "peerDependencies": {
