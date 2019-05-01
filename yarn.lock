@@ -7510,10 +7510,10 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.1.tgz#b2d3d95402a811602380783ea4f566eb875569a2"
 
-vue-inherit-slots@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/vue-inherit-slots/-/vue-inherit-slots-0.1.1.tgz#f1e42fa880071c1d7ca2795964a6dae6255a82ff"
-  integrity sha512-WXpU3+vTFm6kV/1MJ/6wQaboIYO0M3wfXN4Q+fiGPbk25WWyud9y5TQdlgZX0Xc13TZ0oFOtmyRJVPHbjeabWw==
+vue-inherit-slots@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/vue-inherit-slots/-/vue-inherit-slots-0.2.0.tgz#ad10b51bda4d1f33bf7ad789cf55a2611b2c585c"
+  integrity sha512-6XkhmFvZHCf8J/FMmFt4XwF561ecg86bLj/qfYd74gHKFdvll/Vm6fGgwa30dkNoVqCd+niaplpmU8pmhnYEOA==
 
 vue-loader@^15.4.2:
   version "15.4.2"
@@ -7543,22 +7543,23 @@ vue-router@^3.0.2:
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-3.0.2.tgz#dedc67afe6c4e2bc25682c8b1c2a8c0d7c7e56be"
   integrity sha512-opKtsxjp9eOcFWdp6xLQPLmRGgfM932Tl56U9chYTnoWqKxQ8M20N7AkdEbM5beUh6wICoFGYugAX9vQjyJLFg==
 
-vue-slot-hooks@^0.2.2:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/vue-slot-hooks/-/vue-slot-hooks-0.2.3.tgz#4a9c26666a4eabb4c94703609b9dec4f878b0c60"
-  integrity sha512-FYQO0cYwmEvQaCj6JBgy8A7bIsTeJSMAVPGAwWODxfhmWCm1nprTDv4iwAPm1/WN/X2mQCCHSpz+MYuZ0b9ijw==
+vue-slot-hooks@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/vue-slot-hooks/-/vue-slot-hooks-0.3.0.tgz#c2c3ef50e4cdc7a04a668799142874666f3979bd"
+  integrity sha512-bksBlU8lsrJ1BsNpHlTNn3Wviy12qyAevqNogkHlvA20t2V1CmYiTUg23BaBTPiRB09Fcfd7LoG8KUcA5VVdKg==
   dependencies:
-    vue-inherit-slots "^0.1.1"
+    vue-inherit-slots "^0.2.0"
 
-vue-source-code-builder@^0.0.20:
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/vue-source-code-builder/-/vue-source-code-builder-0.0.20.tgz#b5b88f552580814f6fd6eeeeb585dd48b28de11f"
-  integrity sha512-PqU0ZGHUJdXW8+e4HP9I3vYefi+vRGEPnXY5VnOTAxRm0M0KvBJqCqYeeF8oXAEEpTOGMTSE+z5IXZY88gr7cA==
+vue-source-code-builder@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/vue-source-code-builder/-/vue-source-code-builder-0.1.1.tgz#bcc07a1476540c8d1151754724098729bebdc774"
+  integrity sha512-WYxFRnco/ihNuNa+INaX3mcWxrBw2njRf/Rq1+VIBeXPtM9NDApfQkz0ioyPFOGGPe6h1WkOTILu0jzg+08rzQ==
   dependencies:
     prettier "^1.15.3"
     prismjs "^1.15.0"
     v-runtime-template "1.5.2"
     vue-prism-component "^1.1.1"
+    vue-slot-hooks "^0.3.0"
 
 vue-style-loader@^4.1.0:
   version "4.1.2"

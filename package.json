@@ -84,7 +84,7 @@
     "vue-ga": "^1.0.0",
     "vue-markdown-loader": "^2.4.1",
     "vue-router": "^3.0.2",
-    "vue-source-code-builder": "^0.0.20",
+    "vue-source-code-builder": "^0.1.1",
     "vue-template-compiler": "^2.5.17"
   },
   "peerDependencies": {
@@ -105,6 +105,6 @@
     "not ie <= 8"
   ],
   "dependencies": {
-    "vue-slot-hooks": "^0.2.2"
+    "vue-slot-hooks": "^0.3.0"
   }
 }

@@ -3,23 +3,23 @@
       import axios from 'axios'
       export default {
         data() {
-          <text-element
+          <text-node
   v-if="props.tableOptions.dataRowOptions === 'fourValueCycle'"
 >
             let cycleWithFourStates = ['success', 'error', 'warning', 'info']
-          </text-element>
-          <text-element v-if="props.tableOptions.dataRowOptions === 'evenOddCycle'">
+          </text-node>
+          <text-node v-if="props.tableOptions.dataRowOptions === 'evenOddCycle'">
             let cycleWithTwoStates = ['even', 'odd']
-          </text-element>
+          </text-node>
           return {
             records: [],
-            <text-element v-if="props.manualPagination">
+            <text-node v-if="props.manualPagination">
               currentPage: 1,
-            </text-element>
-            <text-element v-if="props.paginated">
+            </text-node>
+            <text-node v-if="props.paginated">
               perPage: {{ props.perPage }},
-            </text-element>
-            <text-element v-if="props.tableOptions.dataRowOptions === 'fourValueCycle'">
+            </text-node>
+            <text-node v-if="props.tableOptions.dataRowOptions === 'fourValueCycle'">
               fourValueCycle: record => {
                 let rowClass = cycleWithFourStates.shift()
                 cycleWithFourStates.push(rowClass)
@@ -28,8 +28,8 @@
                   id: `row-${record.id}`
                 }
               }
-            </text-element>
-            <text-element v-if="props.tableOptions.dataRowOptions === 'evenOddCycle'">
+            </text-node>
+            <text-node v-if="props.tableOptions.dataRowOptions === 'evenOddCycle'">
               evenOddCycle: record => {
                 let rowClass = cycleWithTwoStates.shift()
                 cycleWithTwoStates.push(rowClass)
@@ -38,11 +38,11 @@
                   id: `row-${record.id}`
                 }
               }
-            </text-element>
+            </text-node>
           }
         },
         computed: {
-          <text-element v-if="props.manualPagination">
+          <text-node v-if="props.manualPagination">
             totalPages() {
               return Math.ceil(
                 this.records.length /
@@ -59,21 +59,21 @@
                 this.perPage
               )
             }
-          </text-element>
+          </text-node>
         },
         methods: {
-          <text-element v-if="props.manualPagination">
+          <text-node v-if="props.manualPagination">
           setCurrentPage(currentPage) {
             this.currentPage = currentPage
           },
-          </text-element>
-          <text-element v-if="props.columns.id">
+          </text-node>
+          <text-node v-if="props.columns.id">
           linkClicked(record) {
             event.preventDefault()
             alert(`Link Clicked for record ${record.id}`)
           },
-          </text-element>
-          <text-element v-if="props.emailFormattersPresent">
+          </text-node>
+          <text-node v-if="props.emailFormattersPresent">
           email(value) {
             return this.$createElement(
               'a',
@@ -81,13 +81,13 @@
               value
             )
           },
-          </text-element>
-          <text-element v-if="props.upperFormattersPresent">
+          </text-node>
+          <text-node v-if="props.upperFormattersPresent">
           upper: v => v.toUpperCase(),
-          </text-element>
-          <text-element v-if="props.lowerFormattersPresent">
+          </text-node>
+          <text-node v-if="props.lowerFormattersPresent">
           lower: v => v.toLowerCase()
-          </text-element>
+          </text-node>
         },
         mounted() {
           axios.get('https://raw.githubusercontent.com/hunterae/vue-table-for/master/examples/people.json')

@@ -71,14 +71,15 @@
     <accordion-section title="Configure Columns">
       <checkbox-input
         v-model="tableOptions.columns.id"
+        value="id"
         label="Include ID column"
         :disabled="tableOptions.columns.id && totalColumns === 1"
       />
       <hr />
       <checkbox-input
-        v-model="tableOptions.columns.firstName"
+        v-model="tableOptions.columns.first_name"
         label="Include First Name column"
-        :disabled="tableOptions.columns.firstName && totalColumns === 1"
+        :disabled="tableOptions.columns.first_name && totalColumns === 1"
       />
       <select-input
         v-model="tableOptions.columnFormatters.firstName"
@@ -88,13 +89,13 @@
           { value: 'upper', label: 'Uppercase' },
           { value: 'lower', label: 'Lowercase' }
         ]"
-        v-if="tableOptions.columns.firstName"
+        v-if="tableOptions.columns.first_name"
       />
       <hr />
       <checkbox-input
-        v-model="tableOptions.columns.lastName"
+        v-model="tableOptions.columns.last_name"
         label="Include Last Name column"
-        :disabled="tableOptions.columns.lastName && totalColumns === 1"
+        :disabled="tableOptions.columns.last_name && totalColumns === 1"
       />
       <select-input
         v-model="tableOptions.columnFormatters.lastName"
@@ -104,19 +105,19 @@
           { value: 'upper', label: 'Uppercase' },
           { value: 'lower', label: 'Lowercase' }
         ]"
-        v-if="tableOptions.columns.lastName"
+        v-if="tableOptions.columns.last_name"
       />
       <hr />
       <checkbox-input
-        v-model="tableOptions.columns.fullName"
+        v-model="tableOptions.columns.full_name"
         label="Include Full Name column"
-        :disabled="tableOptions.columns.fullName && totalColumns === 1"
+        :disabled="tableOptions.columns.full_name && totalColumns === 1"
         help="Full name is a custom column definition that combines first_name and last_name from the record"
       />
       <checkbox-input
         v-model="tableOptions.fullNameContentProperty"
         label="Define Full Name content using a Property"
-        v-if="tableOptions.columns.fullName"
+        v-if="tableOptions.columns.full_name"
         :disabled="!tableOptions.defaultScopedSlot"
       />
       <hr />
@@ -187,21 +188,21 @@
         />
         <hr />
       </template>
-      <template v-if="tableOptions.columns.firstName">
+      <template v-if="tableOptions.columns.first_name">
         <checkbox-input
           v-model="tableOptions.includeCustomFirstNameHeader"
           label="Include a Custom First Name header"
         />
         <hr />
       </template>
-      <template v-if="tableOptions.columns.lastName">
+      <template v-if="tableOptions.columns.last_name">
         <checkbox-input
           v-model="tableOptions.includeCustomLastNameHeader"
           label="Include a Custom Last Name header"
         />
         <hr />
       </template>
-      <template v-if="tableOptions.columns.fullName">
+      <template v-if="tableOptions.columns.full_name">
         <checkbox-input
           v-model="tableOptions.includeCustomFullNameHeader"
           label="Include a Custom Full Name header"
@@ -266,7 +267,7 @@
 import samplePeopleRecords from '../../people.json'
 import Accordion from 'vue-source-code-builder/src/components/Accordion'
 import AccordionSection from 'vue-source-code-builder/src/components/AccordionSection'
-import CheckboxInput from 'vue-source-code-builder/src/components/inputs/CheckboxInput'
+import CheckboxInput from '../../../../vue-source-code-builder/src/components/inputs/CheckboxInput'
 import RadioInput from 'vue-source-code-builder/src/components/inputs/RadioInput'
 import SelectInput from 'vue-source-code-builder/src/components/inputs/SelectInput'
 import TextAreaInput from 'vue-source-code-builder/src/components/inputs/TextAreaInput'
@@ -282,11 +283,11 @@ let defaultTableOptions = (preset = 'bare-bones') => {
   return {
     columns: {
       id: customHeaders,
-      firstName:
+      first_name:
         bareBones || basicPaginated || manuallyPaginated || customFormatters,
-      lastName:
+      last_name:
         bareBones || basicPaginated || manuallyPaginated || customFormatters,
-      fullName: customDataColumn || customHeaders,
+      full_name: customDataColumn || customHeaders,
       email:
         bareBones ||
         customDataColumn ||
@@ -331,16 +332,17 @@ export default {
     RadioInput
   },
   props: {
-    preset: {
-      type: String,
-      default: 'bare-bones'
-    }
+    // preset: {
+    //   type: String,
+    //   default: 'bare-bones'
+    // }
   },
   data() {
     return {
       rawRecords: JSON.stringify(samplePeopleRecords, null, 2),
       tableOptions: defaultTableOptions(),
-      presetChoice: true
+      presetChoice: true,
+      preset: 'bare-bones'
     }
   },
   computed: {
@@ -356,8 +358,8 @@ export default {
   },
   methods: {
     setPreset(preset) {
-      this.$router.push({ name: 'presets', params: { preset: preset } })
-
+      // this.$router.push({ name: 'presets', params: { preset: preset } })
+      this.preset = preset
       if (preset !== 'custom') {
         this.presetChoice = true
         let tableOptions = defaultTableOptions(preset)
