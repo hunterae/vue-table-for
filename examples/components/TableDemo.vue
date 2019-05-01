@@ -355,26 +355,26 @@ let RecordScope = {
   }
 }
 
-let stringifyFunction = f => {
-  return f.toString().replace(/^\s*function\s+/, '') + ','
+let stringifyFunction = (f, key) => {
+  return key + f.toString().replace(/^\s*function[^(]+/, '') + ','
 }
 
 const stringFormatters = [
   {
     value: 'upper',
     label: 'Uppercase',
-    definition: stringifyFunction(upper)
+    definition: stringifyFunction(upper, 'upper')
   },
   {
     value: 'lower',
     label: 'Lowercase',
-    definition: stringifyFunction(lower)
+    definition: stringifyFunction(lower, 'lower')
   }
 ]
 const emailFormatter = {
   value: 'email',
   label: 'Email',
-  definition: stringifyFunction(email)
+  definition: stringifyFunction(email, 'email')
 }
 
 export default {
@@ -449,10 +449,13 @@ export default {
       defaultHeaderFormatter: null,
       defaultColumnFormatter: null,
       functions: {
-        setCurrentPage: stringifyFunction(setCurrentPage),
-        currentPageRecords: stringifyFunction(currentPageRecords),
-        totalPages: stringifyFunction(totalPages),
-        linkClicked: stringifyFunction(linkClicked)
+        setCurrentPage: stringifyFunction(setCurrentPage, 'setCurrentPage'),
+        currentPageRecords: stringifyFunction(
+          currentPageRecords,
+          'currentPageRecords'
+        ),
+        totalPages: stringifyFunction(totalPages, 'totalPages'),
+        linkClicked: stringifyFunction(linkClicked, 'linkClicked')
       }
     }
   },
