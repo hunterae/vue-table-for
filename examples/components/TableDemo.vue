@@ -5,7 +5,7 @@
         <h3>Step 1: Set the options</h3>
         <accordion>
           <accordion-section title="Configure Pagination">
-            <checkbox-input v-model="paginated" label="Paginate the Data" />
+            <checkbox-input v-model="paginated" label="Paginate the Data"/>
             <select-input
               v-model.number="perPage"
               label="Per Page"
@@ -39,7 +39,7 @@
                 :key="`${column}-formatter`"
                 v-if="showingColumn(column) && availableFormatters[column]"
               />
-              <hr :key="`${column}-hr`" />
+              <hr :key="`${column}-hr`">
             </template>
             <checkbox-input
               v-model="defaultScopedSlot"
@@ -63,7 +63,7 @@
                 v-model="columnConfigurations[column].customHeader"
                 :label="`Include a Custom ${titleize(column)} header`"
               />
-              <hr v-if="showingColumn(column)" :key="`${column}-hr`" />
+              <hr v-if="showingColumn(column)" :key="`${column}-hr`">
             </template>
             <checkbox-input
               v-model="specifyTableHeadersAsProperty"
@@ -76,7 +76,7 @@
             />
           </accordion-section>
           <accordion-section title="Configure Records">
-            <text-area-input v-model="rawRecords" rows="10" />
+            <text-area-input v-model="rawRecords" rows="10"/>
           </accordion-section>
         </accordion>
       </div>
@@ -97,16 +97,9 @@
 
           <!-- Pagination -->
           <template slot="append_table_tag" v-if="paginated">
-            <element-node-attribute name="paginated" />
-            <element-node-attribute
-              name="paginateInternally"
-              v-if="paginateInternally"
-            />
-            <element-node-attribute
-              name=":per-page"
-              value="perPage"
-              v-if="paginateInternally"
-            />
+            <element-node-attribute name="paginated"/>
+            <element-node-attribute name="paginateInternally" v-if="paginateInternally"/>
+            <element-node-attribute name=":per-page" value="perPage" v-if="paginateInternally"/>
 
             <element-node-attribute
               name=":records"
@@ -129,43 +122,34 @@
             />
           </template>
           <template slot="append_data_content" v-if="paginated">
-            <text-node :text="`perPage: ${perPage},`" />
-            <text-node :text="`currentPage: 1,`" v-if="!paginateInternally" />
+            <text-node :text="`perPage: ${perPage},`"/>
+            <text-node :text="`currentPage: 1,`" v-if="!paginateInternally"/>
           </template>
-          <template
-            slot="append_computed_content"
-            v-if="paginated && !paginateInternally"
-          >
-            <pre is="text-node" :text="functions.totalPages" />
-            <pre is="text-node" :text="functions.currentPageRecords" />
+          <template slot="append_computed_content" v-if="paginated && !paginateInternally">
+            <pre is="text-node" :text="functions.totalPages"/>
+            <pre is="text-node" :text="functions.currentPageRecords"/>
           </template>
 
-          <template
-            slot="append_methods_content"
-            v-if="paginated && !paginateInternally"
-          >
-            <pre is="text-node" :text="functions.setCurrentPage" />
+          <template slot="append_methods_content" v-if="paginated && !paginateInternally">
+            <pre is="text-node" :text="functions.setCurrentPage"/>
           </template>
           <!-- End of Pagination -->
 
           <!-- First Name Column -->
           <element-node tag="a" slot="id_content">
-            <element-node-attribute
-              name=":href"
-              value="`/records/${record.id}`"
-            />
-            <element-node-attribute name="@click" value="linkClicked(record)" />
-            <element-node tag="i" class="fa fa-edit" />
+            <element-node-attribute name=":href" value="`/records/${record.id}`"/>
+            <element-node-attribute name="@click" value="linkClicked(record)"/>
+            <element-node tag="i" class="fa fa-edit"/>
           </element-node>
           <template slot="append_methods_content" v-if="showingColumn('id')">
-            <pre is="text-node" :text="functions.linkClicked" />
+            <pre is="text-node" :text="functions.linkClicked"/>
           </template>
           <!-- End of First Name Column -->
 
           <!-- Full Name Column -->
           <text-node slot="full_name_content">
-            <text-node text="record.first_name" curly-braces />
-            <text-node text="record.last_name" curly-braces />
+            <text-node text="record.first_name" curly-braces/>
+            <text-node text="record.last_name" curly-braces/>
           </text-node>
           <!-- End of Full Name Column -->
 
@@ -200,31 +184,23 @@
             v-for="formatter in allFormatters"
             v-if="formatterUsed(formatter.value)"
           >
-            <text-node :text="formatter.definition" :key="formatter.value" />
+            <text-node :text="formatter.definition" :key="formatter.value"/>
           </template>
           <!-- End of Formatters -->
 
           <!-- Default Scoped Slot On / Off -->
-          <record-scope
-            slot="around_table_content"
-            slot-scope="content"
-            v-if="defaultScopedSlot"
-          >
-            <component :is="content" />
+          <record-scope slot="around_table_content" slot-scope="content" v-if="defaultScopedSlot">
+            <component :is="content"/>
           </record-scope>
-          <record-scope
-            slot="around_id_content"
-            slot-scope="content"
-            v-if="!defaultScopedSlot"
-          >
-            <component :is="content" />
+          <record-scope slot="around_id_content" slot-scope="content" v-if="!defaultScopedSlot">
+            <component :is="content"/>
           </record-scope>
           <record-scope
             slot="around_full_name_content"
             slot-scope="content"
             v-if="!defaultScopedSlot"
           >
-            <component :is="content" />
+            <component :is="content"/>
           </record-scope>
           <!-- End of Default Scoped Slot On / Off -->
 
@@ -249,62 +225,41 @@
 
           <!-- Table Headers as a Property -->
           <template slot="prepend_id_tag" v-if="specifyTableHeadersAsProperty">
-            <element-node-attribute name=":header" value="false" />
+            <element-node-attribute name=":header" value="false"/>
           </template>
-          <template
-            slot="prepend_first_name_tag"
-            v-if="specifyTableHeadersAsProperty"
-          >
-            <element-node-attribute name="header" value="Vorname" />
+          <template slot="prepend_first_name_tag" v-if="specifyTableHeadersAsProperty">
+            <element-node-attribute name="header" value="Vorname"/>
           </template>
-          <template
-            slot="prepend_last_name_tag"
-            v-if="specifyTableHeadersAsProperty"
-          >
-            <element-node-attribute name="header" value="Nachname" />
+          <template slot="prepend_last_name_tag" v-if="specifyTableHeadersAsProperty">
+            <element-node-attribute name="header" value="Nachname"/>
           </template>
-          <template
-            slot="prepend_full_name_tag"
-            v-if="specifyTableHeadersAsProperty"
-          >
-            <element-node-attribute name="header" value="Name" />
+          <template slot="prepend_full_name_tag" v-if="specifyTableHeadersAsProperty">
+            <element-node-attribute name="header" value="Name"/>
           </template>
-          <template
-            slot="prepend_email_tag"
-            v-if="specifyTableHeadersAsProperty"
-          >
-            <element-node-attribute name="header" value="Email Address" />
+          <template slot="prepend_email_tag" v-if="specifyTableHeadersAsProperty">
+            <element-node-attribute name="header" value="Email Address"/>
           </template>
           <!-- End of Table Headers as a Property -->
 
           <!-- Data Field as a Property -->
           <template slot="prepend_id_tag" v-if="specifyDataFieldAsProperty">
-            <element-node-attribute name="field" value="id" />
+            <element-node-attribute name="field" value="id"/>
           </template>
-          <template
-            slot="prepend_first_name_tag"
-            v-if="specifyDataFieldAsProperty"
-          >
-            <element-node-attribute name="field" value="last_name" />
+          <template slot="prepend_first_name_tag" v-if="specifyDataFieldAsProperty">
+            <element-node-attribute name="field" value="last_name"/>
           </template>
-          <template
-            slot="prepend_last_name_tag"
-            v-if="specifyDataFieldAsProperty"
-          >
-            <element-node-attribute name="field" value="first_name" />
+          <template slot="prepend_last_name_tag" v-if="specifyDataFieldAsProperty">
+            <element-node-attribute name="field" value="first_name"/>
           </template>
-          <template
-            slot="prepend_full_name_tag"
-            v-if="specifyDataFieldAsProperty"
-          >
-            <element-node-attribute name="field" value="full_name" />
+          <template slot="prepend_full_name_tag" v-if="specifyDataFieldAsProperty">
+            <element-node-attribute name="field" value="full_name"/>
           </template>
           <template slot="prepend_email_tag" v-if="specifyDataFieldAsProperty">
-            <element-node-attribute name="field" value="email" />
+            <element-node-attribute name="field" value="email"/>
           </template>
           <!-- End of Data Field as a Property -->
         </table-source-code-builder>
-        <hr />
+        <hr>
       </div>
 
       <div class="col-md-4">
@@ -317,8 +272,8 @@
           class="hidden-xs"
         />
         <h3>Step 3: View the Result</h3>
-        <hr />
-        <v-runtime-template :template="template" v-if="template" />
+        <hr>
+        <v-runtime-template :template="template" v-if="template"/>
       </div>
     </div>
   </div>
@@ -506,4 +461,34 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+pre[class*='language-'] {
+  border-radius: 6px;
+  margin: 0 0 30px 0 !important;
+}
+
+code[class*='language-'] {
+  font-size: 1.6rem;
+  line-height: 26px;
+}
+
+.language-markup .token.attr-name {
+  color: #b294bb;
+}
+.language-markup .token.attr-value {
+  color: #b5bd68;
+}
+.language-markup .token.tag,
+.language-markup .token.keyword {
+  color: #d75a64;
+}
+.language-markup .token.punctuation {
+  color: #8abeb7;
+}
+.language-javascript .token.function {
+  color: #81a2be;
+}
+.language-javascript .token.string {
+  color: #b5bd68;
+}
+</style>

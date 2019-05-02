@@ -6,10 +6,8 @@
       @update:script="$emit('update:script', $event)"
       @update:styles="$emit('update:styles', $event)"
     >
-      <template slot="prepend_script_content">
-        <pre is="text-node">
-          import Axios from 'axios'
-        </pre>
+      <template slot="before_script">
+        <text-node :text="'import Axios from \'axios\'\n'"/>
       </template>
 
       <template slot="append_exports_content">
@@ -21,7 +19,7 @@
       </template>
 
       <template slot="append_data_content">
-        <pre is="text-node" text="records: []," />
+        <pre is="text-node" text="records: [],"/>
       </template>
 
       <template slot="append_exports_content">
@@ -41,11 +39,7 @@
         slot-name="table"
         inner-slot-hooks-only
       >
-        <element-node-attribute
-          name=":records"
-          value="records"
-          slot="prepend_table_tag"
-        />
+        <element-node-attribute name=":records" value="records" slot="prepend_table_tag"/>
         <template v-for="column in columns">
           <render-with-slot-hooks
             tag="element-node"
