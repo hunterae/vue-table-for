@@ -33,9 +33,13 @@ export default {
 
     let defaultSlot = context.slots().default
     field = field || name
+
     if (typeof content === 'undefined' && record.hasOwnProperty(field)) {
       content = record[field]
+    } else if (typeof content === 'function') {
+      content = content(record, { context, createElement })
     }
+
     if (formatter && typeof content !== 'undefined') {
       content = formatter(content, {
         ...context.data,
