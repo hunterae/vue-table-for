@@ -13,7 +13,10 @@
         <p>Easily build a table for your records</p>
       </div>
     </div>
-    <router-view />
+    <div class="container-fluid">
+      <router-view />
+      <div class="row"><doc class="col-md-12 markdown-body" /></div>
+    </div>
     <footer class="footer">
       <div class="container">
         <h4>
@@ -28,11 +31,15 @@
 </template>
 
 <script>
+import Doc from '@/../README.md'
 import 'github-markdown-css'
 import 'bootstrap-sass/assets/stylesheets/_bootstrap.scss'
 
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    Doc
+  }
 }
 </script>
 

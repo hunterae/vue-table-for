@@ -42,19 +42,35 @@ Only the data columns are required. Header columns will be automatically generat
 
 ```
 <template>
-  <TableFor :records="records">
+  <table-for
+    class="table table-bordered"
+    :records="records"
+  >
     <td name="first_name" />
     <td name="last_name" />
     <td name="email" />
-  </TableFor>
+  </table-for>
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
-  props: {
-    records: Array
+  data() {
+    return {
+      records: []
+    }
+  },
+  mounted() {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/hunterae/vue-table-for/master/examples/people.json"
+      )
+      .then(response => {
+        this.records = response.data
+      })
   }
 }
+</script>
 ```
 
 More documentation coming soon
