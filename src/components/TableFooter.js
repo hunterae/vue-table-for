@@ -29,7 +29,7 @@ export default {
 
     let columns
     if (scopedSlot) {
-      let proxyHash = new Proxy({}, { get: () => '' })
+      let proxyHash = {}
       columns = scopedSlot({ [recordVariable]: proxyHash })
     } else {
       columns = defaultSlot

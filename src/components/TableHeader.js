@@ -16,7 +16,7 @@ export default {
     let { recordVariable } = context.props
 
     if (scopedSlot) {
-      let proxyHash = new Proxy({}, { get: () => '' })
+      let proxyHash = {}
       columns = scopedSlot({ [recordVariable]: proxyHash })
     } else {
       columns = context.slots().default
