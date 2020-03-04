@@ -29,9 +29,8 @@ export default {
   functional: true,
   render(createElement, context) {
     let { record, content, formatter, name, field } = context.props
-    let scopedSlots = context.data.scopedSlots || {}
+    let scopedSlots = context.scopedSlots || {}
 
-    let defaultSlot = context.slots().default
     field = field || name
 
     if (typeof content === 'undefined' && record.hasOwnProperty(field)) {
@@ -49,8 +48,6 @@ export default {
     let children
     if (scopedSlots.default) {
       children = scopedSlots.default({ record: record })
-    } else if (defaultSlot) {
-      children = defaultSlot
     } else {
       children = [content]
     }
@@ -59,11 +56,9 @@ export default {
       RenderWithSlotHooks,
       {
         props: {
-          inheritSlots: true,
           slotName: name,
           tag: 'td',
-          tagData: omit(context.data, ['props']),
-          passSlotsToTag: false
+          tagData: omit(context.data, ['props'])
         }
       },
       children

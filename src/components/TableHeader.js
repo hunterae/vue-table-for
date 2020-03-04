@@ -1,5 +1,5 @@
 import TableHeaderColumn from './TableHeaderColumn'
-import { pick } from 'vue-slot-hooks/src/utils/HelperUtils'
+import { pick, omit } from 'vue-slot-hooks/src/utils/HelperUtils'
 
 import { RenderWithSlotHooks } from 'vue-slot-hooks'
 // import RenderWithSlotHooks from '../../../vue-slot-hooks/src/components/RenderWithSlotHooks'
@@ -11,47 +11,48 @@ export default {
   },
   render(h, context) {
     let columns
-    let scopedSlots = context.data.scopedSlots || {}
+    let scopedSlots = context.scopedSlots || {}
     let scopedSlot = scopedSlots.default
+    scopedSlots = omit(scopedSlots, ['default'])
+    // let testSlots = scopedSlots //pick(scopedSlots, ['body'])
     let { recordVariable } = context.props
+    // debugger
 
-    if (scopedSlot) {
-      let proxyHash = {}
-      columns = scopedSlot({ [recordVariable]: proxyHash })
-    } else {
-      columns = context.slots().default
-    }
+    let proxyHash = {}
+    columns = scopedSlot({ [recordVariable]: proxyHash })
     columns = columns.filter(column => column.tag === 'td')
+    columns = columns.map(columnDefinition =>
+      h(TableHeaderColumn, {
+        scopedSlots: { ...scopedSlots },
+        props: {
+          ...pick(context.props, Object.keys(TableHeaderColumn.props)),
+          columnDefinition
+        }
+      })
+    )
+
+    let headerRow = h(
+      RenderWithSlotHooks,
+      {
+        props: {
+          scopedSlots,
+          slotName: 'header_row',
+          tag: 'tr'
+        }
+      },
+      columns
+    )
 
     let header = h(
       RenderWithSlotHooks,
       {
         props: {
-          inheritSlots: true,
+          scopedSlots,
           slotName: 'header',
-          tag: 'thead',
-          passSlotsToTag: false
+          tag: 'thead'
         }
       },
-      h(
-        RenderWithSlotHooks,
-        {
-          props: {
-            inheritSlots: true,
-            slotName: 'header_row',
-            tag: 'tr',
-            passSlotsToTag: false
-          }
-        },
-        columns.map(columnDefinition =>
-          h(TableHeaderColumn, {
-            props: {
-              ...pick(context.props, Object.keys(TableHeaderColumn.props)),
-              columnDefinition
-            }
-          })
-        )
-      )
+      headerRow
     )
 
     return header

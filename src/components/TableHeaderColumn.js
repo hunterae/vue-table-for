@@ -25,6 +25,7 @@ export default {
     let { columnDefinition } = context.props
 
     let { name, header } = columnDefinition.data.attrs
+    let scopedSlots = context.scopedSlots || {}
     let globalHeaderOptions = context.props.header
     if (typeof globalHeaderOptions === 'function') {
       globalHeaderOptions = globalHeaderOptions(columnDefinition)
@@ -54,32 +55,26 @@ export default {
 
     let { content, formatter } = headerColumnOptions
 
-    let slots = context.slots()
-    if (slots.default) {
-      content = slots.default
-    } else {
-      if (typeof content === 'undefined') {
-        content = startCase(name)
-      }
-
-      if (typeof content === 'boolean' && !content) {
-        content = null
-      } else if (formatter) {
-        content = formatter(content)
-      }
-
-      content = [content]
+    if (typeof content === 'undefined') {
+      content = startCase(name)
     }
+
+    if (typeof content === 'boolean' && !content) {
+      content = null
+    } else if (formatter) {
+      content = formatter(content)
+    }
+
+    content = [content]
 
     return createElement(
       RenderWithSlotHooks,
       {
         props: {
-          inheritSlots: true,
+          scopedSlots,
           slotName: `${name}_header`,
           tag: 'th',
-          tagData: { attrs: headerAttrs },
-          passSlotsToTag: false
+          tagData: { attrs: headerAttrs }
         }
       },
       content

@@ -38,11 +38,9 @@ export default {
       RenderWithSlotHooks,
       {
         props: {
-          inheritSlots: true,
           slotName: 'data_row',
           tag: 'tr',
-          tagData: dataRow,
-          passSlotsToTag: false
+          tagData: dataRow
         }
       },
       columns.map(column => {

@@ -2,7 +2,6 @@ import TableHeader from './TableHeader'
 import TableBody from './TableBody'
 import TableFooter from './TableFooter'
 import TableForPaginator from './TableForPaginator'
-import { InheritSlots } from 'vue-inherit-slots'
 import { pick } from 'vue-slot-hooks/src/utils/HelperUtils'
 
 export default {
@@ -74,7 +73,7 @@ export default {
     }
   },
   render(h) {
-    let scopedSlots = this.$scopedSlots || {}
+    let scopedSlots = { ...(this.$scopedSlots || {}) }
     let paginator
     if (this.paginated) {
       if (this.paginateInternally) {
@@ -93,40 +92,28 @@ export default {
 
     return h('table', {}, [
       paginator,
-      h(
-        TableHeader,
-        {
-          props: pick(this.$props, Object.keys(TableHeader.props)),
-          scopedSlots
+      h(TableHeader, {
+        props: pick(this.$props, Object.keys(TableHeader.props)),
+        scopedSlots
+      }),
+      h(TableBody, {
+        props: {
+          ...pick(this.$props, Object.keys(TableBody.props)),
+          records: this.currentPageRecords
         },
-        [h(InheritSlots, { props: { inheritDefaultSlot: true } })]
-      ),
-      h(
-        TableBody,
-        {
-          props: {
-            ...pick(this.$props, Object.keys(TableBody.props)),
-            records: this.currentPageRecords
-          },
-          scopedSlots
+        scopedSlots
+      }),
+      h(TableFooter, {
+        props: {
+          ...pick(this.$props, Object.keys(TableFooter.props)),
+          currentPage: this.page,
+          totalPages: this.pages
         },
-        [h(InheritSlots, { props: { inheritDefaultSlot: true } })]
-      ),
-      h(
-        TableFooter,
-        {
-          props: {
-            ...pick(this.$props, Object.keys(TableFooter.props)),
-            currentPage: this.page,
-            totalPages: this.pages
-          },
-          on: {
-            'update:currentPage': this.handleUpdateCurrentPage
-          },
-          scopedSlots
+        on: {
+          'update:currentPage': this.handleUpdateCurrentPage
         },
-        [h(InheritSlots, { props: { inheritDefaultSlot: true } })]
-      )
+        scopedSlots
+      })
     ])
   }
 }
